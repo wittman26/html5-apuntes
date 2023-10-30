@@ -1,0 +1,357 @@
+<!DOCTYPE HTML>
+<HTML>
+	<head>
+		<meta charset="utf-8">
+		<title>HTML5 Fundamentals</title>
+		<link rel="stylesheet" href="css/estilo.css"> <!-- En HTML5 ya no es necesario esto: type="text/css" -->
+		<link rel="stylesheet" href="css/normalize.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script href="js/modernizr-custom.js"></script>
+		<style>
+			input[required] {
+				border: 1px red solid;
+			}
+			input[type=password]{
+				border: 1px blue solid;
+			}
+
+			#gender option:checked{
+				font-size: 3em;
+			}
+
+			label:hover{
+				content: "Sobre!!";
+			}
+
+		</style>
+		<script>
+			window.onload = function(){
+
+				function ocultar(submenu) {
+					// console.log("Ocultando: " + submenu.attr("id"));
+					// console.log("Display: " + submenu.css("display"));
+					if(submenu.css("display")=="block"){ //propiedad style, con valor interno display
+						submenu.css("display","none")
+					} else {
+						submenu.css("display","inline")
+					}
+				}
+
+				$("document").ready(function(){
+					//Por cada li, haga:
+					$("#menuprin>ul>li").each(function(){
+						// console.log("Entra: " + $(this).find('nav').length);
+						// console.log("EntraX: " + $(this).find('[href]').length);
+						//Este objeto en su evento mouseenter
+						$(this).hover(function(){
+							// console.log("Entra a evento: " + $(this).children('nav').attr("id"));
+							ocultar($(this).children('nav'));
+						},
+						function(){
+							// console.log("Entra a evento: " + $(this).children('nav').attr("id"));
+							ocultar($(this).children('nav'));
+						});
+					});
+				});				
+
+			}
+
+
+
+		</script>
+	</head>
+	<body>
+		<header>
+			<nav id="menuprin" class="cocon sombra">
+				<ul>
+					<li><a href="#articulo1">Inicio</a></li>
+					<li><a href="training/training.html">TRAINING</a></li>
+					<li><a id="ejemplos" href="#">Ejemplos</a>
+						<nav id="ejem-interno" class="menu-interno">
+							<ul>
+								<li><a href="Ej1.html" target="_blank">Ejemplo 1</a></li>
+								<li><a href="Ej2.html" target="_blank">Ejemplo 2</a></li>
+								<li><a href="NavPers.html" target="_blank">Navegador Personalizado</a></li>
+								<li><a href="position.html" target="_blank">Position</a></li>
+								<li><a href="survey.html" target="_blank">Survey</a></li>
+								<li><a href="idioma.html" target="_blank">Idioma</a></li>
+							</ul>
+						</nav>						
+					</li>
+
+					
+					<li><a href="canvas.html" target="_blank">Canvas y SVG</a></li>
+					
+					<li><a id="htmlapi" href="#">API HTML</a>
+						<nav id="html-interno" class="menu-interno">
+							<ul>
+								<li><a href="storage.html" target="_blank">Storage</a></li>
+								<li><a href="appcache.html" target="_blank">AppCache</a></li>
+								<li><a href="geolocate.html" target="_blank">API Geolocate</a></li>
+							</ul>
+						</nav>
+					</li>
+
+					<li><a id="javascr" href="#">JavaScript</a>
+						<nav id="javascr-interno" class="menu-interno">
+							<ul>
+								<li><a href="ciclovar.html" target="_blank">Ciclo de Variables</a></li>
+								<li><a href="objnativos.html" target="_blank">Objetos</a></li>
+								<li><a href="progflow.html" target="_blank">Flujo de programa</a></li>
+								<li><a href="events.html" target="_blank">Manejo de Eventos</a></li>
+								<li><a href="eventsmouse.html" target="_blank">Eventos de mouse</a></li>
+								<li><a href="excepciones.html" target="_blank">Excepciones</a></li>
+								<li><a href="callback.html" target="_blank">Callback</a></li>
+								<li><a href="jquery.html" target="_blank">JQuery y AJAX</a></li>
+								<li><a href="webworker.html" target="_blank">Web worker process</a></li>
+							</ul>
+						</nav>
+					</li>
+
+					<li><a id="accyseg" href="#">Acceso y Seguridad</a>
+						<nav id="accyseg-interno" class="menu-interno">
+							<ul>
+								<li><a href="expreg.html" target="_blank">Expresiones Regulares</a></li>
+								<li><a href="consumodatos.html" target="_blank">Consumo de datos</a></li>
+							</ul>
+						</nav>
+					</li>
+					<li><a id="cssestilo" href="#">CSS y Estilo</a>
+						<nav id="cssestilo-interno" class="menu-interno">
+							<ul>
+								<li><a href="csstexto.html" target="_blank">Estilo a texto</a></li>
+								<li><a href="csscajas.html" target="_blank">Estilo a cajas</a></li>
+								<li><a href="cssposition.html" target="_blank">Posicionamiento</a></li>
+								<li><a href="cssflex.html" target="_blank">Flexible</a></li>
+								<li><a href="cssgrid.html" target="_blank">Grid</a></li>
+								<li><a href="csstransition.html" target="_blank">Transitions</a></li>
+								<li><a href="cssestructura.html" target="_blank">Estructura</a></li>
+								<li><a href="errores.html" target="_blank">ERRORES</a></li>
+							</ul>
+						</nav>
+					</li>					
+				</ul>
+			</nav>
+
+			<div class="sombra">
+				<h1>
+					<sup class="etiqueta">(h1)</sup>
+					Etiquetas mas usadas en HTML
+				</h1>
+
+			</div>			
+		</header>
+
+		<article id="articulo1" class="sombra"><sup class="etiqueta-abs">(article)</sup>
+			<div>Caracteres especiales usando: &#number(8482,60,62): 
+				<span style="color:red">"&#8482 &#60Wittman&#62 &#174"</span>
+			</div>
+			<section><sup class="etiqueta-abs">(section)</sup>
+				<form method="POST" action=""><sup class="etiqueta-abs">(form)</sup>
+					<fieldset><sup class="etiqueta-abs">(fieldset)</sup><!-- Group related elements in a form -->
+						<legend>
+							<sup class="etiqueta">(legend)</sup>
+							Info personal
+						</legend>
+						<p>
+							<label>
+								<sup class="etiqueta">(label)</sup>
+								código secreto:
+							</label>
+							<!-- INPUT TEXT -->							
+							<input type="text" id="codsecre" readonly="readonly" value="DAJDC1225">
+							<sup class="etiqueta">(input type:password)</sup>
+						</p>
+
+						<p>
+							<label>
+								<sup class="etiqueta">(label)</sup>
+								Nombre:
+							</label>
+							<!-- INPUT TEXT -->							
+							<input type="text" name="nombre" id="nombre" required="required" 
+							placeholder="escriba el nombre">
+							<sup class="etiqueta">(input type:text)</sup>
+						</p>
+
+						<p>
+							<label>
+								<sup class="etiqueta">(label)</sup>
+								Apellido:
+							</label>
+							<!-- INPUT TEXT -->							
+							<input type="text" name="apellido" id="apellido" required="required" placeholder="escriba el apellido">
+							<sup class="etiqueta">(input type:text)</sup>
+						</p>
+
+						<p>
+							<label>
+								<sup class="etiqueta">(label)</sup>
+								Password:
+							</label>
+							<!-- INPUT TEXT -->							
+							<input type="password" id="apellido" required="required" placeholder="contraseña">
+							<sup class="etiqueta">(input type:password)</sup>
+						</p>						
+
+						<p>
+							<label>
+								<sup class="etiqueta">(label)</sup>
+								Género:
+							</label>
+							<!-- SELECT O COMBOBOX -->
+							<select name="gender" id="gender">
+								<option value="male">Masculino</option>
+								<option value="female">Femenino</option>
+								<option value="other">Otro</option>
+							</select>
+							<sup class="etiqueta">(select)</sup>
+						</p>
+
+
+					</fieldset>
+					<fieldset><sup class="etiqueta-abs">(fieldset)</sup>
+						<legend>Mas información</legend>
+						
+						<!-- INPUT RADIO -->
+						<p>
+							<label for="student">
+								<sup class="etiqueta">(label)</sup>
+								Estudiante
+							</label><!--  Defines a label for an input-->
+							<input type="radio" name="profession" value="student" id="student">
+							<sup class="etiqueta">(input type:radio)</sup>
+						</p>
+						<p>
+
+							<label for="worker">
+								<sup class="etiqueta">(label)</sup>
+								Trabajador
+							</label><!-- for used for asign value -->
+							<input type="radio" name="profession" value="worker" id="worker">
+							<sup class="etiqueta">(input type:radio)</sup>
+						</p>
+						<p>
+
+							<label for="professional">
+								<sup class="etiqueta">(label)</sup>
+								Profesional
+							</label>
+							<input type="radio" name="profession" value="professional" id="professional">
+							<sup class="etiqueta">(input type:radio)</sup>
+						</p>
+
+						
+
+						<!-- INPUT CHECKBOX -->
+						<label>
+							<sup class="etiqueta">(label)</sup>
+							Vehículo:
+						</label>						
+						<p>
+							<input type="checkbox" name="vehicle" value="car">Car 						
+							<sup class="etiqueta">(input type:checkbox)</sup>
+						</p>
+						<p>
+							<input type="checkbox" name="vehicle" value="bike" checked="checked">Bike 						
+							<sup class="etiqueta">(input type:checkbox)</sup>
+						</p>
+						<p>
+							<input type="checkbox" name="vehicle" value="moto">Moto
+							<sup class="etiqueta">(input type:checkbox)</sup>
+						</p>
+
+						<p>
+							<input type="color" name="colores">
+							<sup class="etiqueta">(input type:color)</sup>
+						</p>
+
+						<p>
+							<input type="date" name="fecha">
+							<sup class="etiqueta">(input type:date)</sup>
+						</p>
+
+						<p>
+							<input type='datetime-local' name="fechahora">
+							<sup class="etiqueta">(input type:datetime-local)</sup>
+						</p>
+
+						<!-- INPUT MONTH -->
+						<p>
+							<input type="month" name="mes">	
+							<sup class="etiqueta">(input type:month)</sup>
+						</p>
+
+						<!-- INPUT WEEK -->
+						<p>
+							<input type="week" name="semana">
+							<sup class="etiqueta">(input type:week)</sup>
+						</p>
+
+						<!-- INPUT TIME -->
+						<p>
+							<input type="time" name="tiempo">
+							<sup class="etiqueta">(input type:time)</sup>
+						</p>
+						<!-- INPUT EMAIL -->
+						<p>
+							<input type="email" name="correo"><!-- Includes email format validation  -->
+							<sup class="etiqueta">(input type:email)</sup>
+						</p>
+
+						<!-- INPUT SEARCH -->
+						<p>
+							<input type="search" name="buscar"><!-- Includes email format validation  -->					
+							<sup class="etiqueta">(input type:search)</sup>
+						</p>
+						<p>
+							<input type="range" min="1" max="25" value="2"/>
+							<sup class="etiqueta">(inpute type:range)</sup>
+						</p>
+
+
+						<p>
+							<input type="url" id="direccion" />
+							<sup class="etiqueta">(inpute type:url)</sup>
+						</p>
+						<p>
+							<input type="text" title="Only .com and .ca are permitted." pattern="^[a-zA-Z0-9\-\.]+\.(com|ca)$"/>
+							<sup class="etiqueta">(inpute type:text)</sup>
+						</p>
+
+						<p>
+							<textarea id="otherCommentsText" rows="5" cols="20" spellcheck="true">
+							</textarea>
+							<sup class="etiqueta">(textarea)</sup>
+						</p>
+
+					</fieldset>
+					<input type="submit" name="Enviar">
+					<button type="button">
+						<p>Enviar correo</p>
+						<img src="img/mail.png" style="height: 50px; width:50px;">
+					</button>
+				</form>
+			</section>
+			<section><sup class="etiqueta-abs">(section)</sup>
+				<div><sup class="etiqueta-abs">(div)</sup>
+					<img src="img/avatar.png"><sup class="etiqueta">(img)</sup>
+					<input type="file" name="archivo"><sup class="etiqueta">(input type:file)</sup>
+				</div>
+			</section>
+		</article>
+
+		<header>
+			<div class="sombra">
+				<h1>Otro header ?</h1>
+			</div>			
+		</header>
+
+		<article id="articulo2" class="sombra"><sup class="etiqueta-abs">(article)</sup>
+			<section><sup class="etiqueta-abs">(section)</sup>
+				<h1>Seccion 1</h1>
+			</section>
+		</article>
+
+	</body>
+</HTML>

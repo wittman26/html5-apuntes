@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>CSS Texto</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="css/estilo.css"> <!-- En HTML5 ya no es necesario esto: type="text/css" -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+	<style>
+		/*Define una fuente personalizada cargada desde el mismo sitio*/
+		@font-face{
+			font-family: "cocon";
+			src:url('fonts/cocon.ttf');
+		}
+		body{
+			/*Cambia la fuente del elemento. Busca de izq a der la fuente
+			si no encuentra , busca la siguiente.*/
+			/*font-family:Arial,'Times New Roman',Webdings;*/
+			font-family: 'Montserrat', sans-serif;	
+		}
+		section{
+			font-family: 'cocon';
+		}
+		fieldset{
+			width: 30%;
+		}
+		h1{
+			color:#00FF00;	/*Hexadecimal*/
+		}
+		h2 {
+			color: green; /*Nombre del color*/
+		}
+		h3{
+			color: rgb(0,255,0);	/*Red Green Blue*/
+		}
+		h4{
+			color: orange;
+		}
+		p {
+			font-weight: bold;	/*bold, bolder, lighter, normal*/
+			font-style: italic; /*italic, normal*/
+			padding: 0px;
+			margin: 0px;
+		}
+	</style>
+	<script type="text/javascript">
+		function cambiarPropiedad(objetoCambio,idChequeo){
+			switch(idChequeo){
+				case "negrita":
+					objetoCambio.css("font-weight","bold");
+					break;
+				case "normal":
+					objetoCambio.css("font-weight","normal");
+					break;
+				case "cursiva":
+					objetoCambio.css("font-style","italic");
+					break;					
+				case "normali":
+					objetoCambio.css("font-style","normal");
+					break;					
+			}
+		}
+
+		$("document").ready(function(){
+			$("#fldpesotxt>input").each(function(){
+				console.log("Id atributo: " + $(this).attr("id"));
+				$(this).click(function(){
+					var objetoCambio = $("#textoCambio");
+					var idChequeo = $(this).attr("id");
+					cambiarPropiedad(objetoCambio,idChequeo);
+				});
+			});
+
+			$("#flditaltxt>input").each(function(){
+				console.log("Id atributo: " + $(this).attr("id"));
+				$(this).click(function(){
+					var objetoCambio = $("#textoCambio");
+					var idChequeo = $(this).attr("id");
+					cambiarPropiedad(objetoCambio,idChequeo);
+				});
+			});			
+		});
+	</script>	
+</head>
+<body>
+	<header>
+		<h1>Aplicando Propiedades a Texto</h1>
+	</header>
+	<article>
+		<section>
+			<hgroup>
+				<h2>Titulo 2 (color: green)</h2>
+				<h3>Titulo 3 (color: rgb(0,255,0))</h3>
+			</hgroup>			
+		</section>
+		<section>
+			<div class="sombra">
+				<fieldset id="fldpesotxt">
+					<legend>Peso texto (font-weight)</legend>
+					<label for="negrita">
+						Negrilla (bold)
+					</label><!-- for used for asign value -->
+					<input type="radio" name="pesotxt" id="negrita">
+					<label for="negrita">
+						Normal (normal)
+					</label><!-- for used for asign value -->
+					<input type="radio" name="pesotxt" id="normal">				
+				</fieldset>
+
+				<fieldset id="flditaltxt">
+					<legend>Estilo texto (font-style)</legend>
+					<label for="negrita">
+						Cursiva (italic)
+					</label><!-- for used for asign value -->
+					<input type="radio" name="estilotxt" id="cursiva">
+					<label for="negrita">
+						Normal (normal)
+					</label><!-- for used for asign value -->
+					<input type="radio" name="estilotxt" id="normali">				
+				</fieldset>
+				<span id="textoCambio">Resultado texto</span>
+			</div>
+			<div class="sombra">	
+				<h4>Medidas relativas de font-size:</h4>
+				<span style="font-size: xx-small;">xx-small/</span>
+				<span style="font-size: x-small;">x-small/</span>
+				<span style="font-size: small;">small/</span>
+				<span style="font-size: smaller;">smaller/</span>
+				<span style="font-size: medium;">medium/</span>
+				<span style="font-size: large;">large/</span>
+				<span style="font-size: larger;">larger/</span>
+				<span style="font-size: x-large;">x-large/</span>
+				<span style="font-size: xx-large;">xx-large/</span>
+			</div>
+			<div class="sombra">
+				<h4>Valores de text-align:</h4>
+				<p style="text-align: left;">
+					<span>text-align: left :</span>Este es un texto que está alineado a la izquierda
+				</p>
+				<p style="text-align: right;">
+					<span>text-align: right : </span>Este es un texto que está alineado a la derecha
+				</p>
+				<p style="text-align: center;">
+					<span>text-align: center : </span>Este es un texto que está centrado
+				</p>
+				<p style="text-align: justify;">
+					<span>text-align: justify : </span>Este es un texto que está justificado
+				</p>
+			</div>
+			<div class="sombra">
+				<h4>Identacion:</h4>
+				<p style="text-indent: 10px;">
+					<span>text-indent: 10px : </span>Identado a 10px
+				</p>
+				<p style="text-indent: 20px;">
+					<span>text-indent: 20px : </span>Identado a 20px
+				</p>
+				<p style="text-indent: 30px;">
+					<span>text-indent: 30px : </span>Identado a 30px
+				</p>
+				<h4>Espaciado:</h4>
+				<p style="letter-spacing:  10px;">
+					<span>letter-spacing:  10px : </span>El texto está espaciado por letras
+				</p>
+				<p style="word-spacing:  10px;">
+					<span>word-spacing:  10px : </span>El texto está espaciado por palabras
+				</p>
+			</div>
+			<div class="sombra">
+				<h4>Espaciado:</h4>
+				<p style="hyphens: none; border: 1px solid black;">
+					hyphens: none->Cantidad impresionante de texto!! Cantidad impresionante de texto!! Cantidad impresionante de texto!! Cantidad impresionante de texto!! Cantidad impresionante de texto!! Cantidad impresionante de texto!! Cantidad impresionante de texto!! Cantidad impresionante de texto!! Cantidad impresionante de texto!! Cantidad impresionante de texto!! Cantidad impresionante de texto!! Cantidad impresionante de texto!! 
+				</p>
+				<p style="hyphens: auto; border: 1px solid black;">
+					hyphens: auto->Cantidad impresionante de texto!! Cantidad impresionante de texto!! Cantidad impresionante de texto!! Cantidad impresionante de texto!! Cantidad impresionante de texto!! Cantidad impresionante de texto!! Cantidad impresionante de texto!! Cantidad impresionante de texto!! Cantidad impresionante de texto!! Cantidad impresionante de texto!! Cantidad impresionante de texto!! Cantidad impresionante de texto!! 
+				</p>
+				<p style="hyphens: manual; border: 1px solid black;">
+					hyphens: auto->Cantidad impresionante de texto!! Cantidad impresionante de texto!! Cantidad impresionante de texto!! Cantidad impresionante de texto!! Cantidad impresionante de texto!! Cantidad impresionante de texto!! Cantidad impresionante de texto!! Cantidad impresionante de texto!! Cantidad impresionante de texto!! Cantidad impresionante de texto!! Cantidad impresionante de texto!! Cantidad impresionante de texto!! 
+				</p>
+			</div>
+			<div class="sombra">
+				<h4>Sombra en texto</h4>
+				<p>Horizontal, Vertical, Desenfoque, Color</p>
+				<p style="color: white;text-shadow: 0.1em 0.1em 0.1em black;">
+					text-shadow: black 0.1em 0.1em 0.1em ->Este texto tiene el efecto sombra
+				</p>
+			</div>
+		</section>
+	</article>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style>
+		html, body {
+			height: 100%;
+			width: 100%;
+		}
+		img {
+			height: 150px;
+			width: 225px;
+		}
+		#wittman {
+			height: 150px;
+			width: 225px;
+		}
+		.trans {
+			/*transform: scale(1) ;*/
+			/*transform: rotate(90deg); Rota la imagen la cantidad de grados elegidos */
+			/*transform: rotateX(30deg); Rota la imagen la cantidad de grados elegidos */
+			/*transform: rotateY(30deg); Rota la imagen la cantidad de grados elegidos */
+			/*transform: translate(50px,0px); /* Traslada el elemento PosX, PosY*/
+			/*transform: skew(50deg, 10deg); /*Sesgar GradX,GradY*/
+			transform: translate(50px,0px) scale(1.5) skew(10deg, 10deg); /*Combinando transformacion*/
+		}
+
+		.bordeado {
+			width: 100%; 
+			height: 40%; 
+			border: 1px solid black;
+		}
+		</style>		
+	</style>
+	<script>
+		window.onload = function () {
+			var top = document.getElementById("topText");
+			var left = document.getElementById("leftText");
+			var pos = document.getElementById("positioning");
+
+			document.getElementById("btnPosition").onclick = function () {
+				var img = document.getElementById("orange2");
+				img.style.position = pos.value;
+				img.style.left = left.value + "px";
+				img.style.top = top.value + "px";
+			}
+
+			document.getElementById("wittman").onclick = function(){
+				this.classList.add("trans");
+				// alert("Entró");
+			}
+
+			document.getElementById("btnHideElement").onclick = function(){
+				if(document.getElementById("interior").style.display == 'inline'){ //propiedad style, con valor interno display
+					document.getElementById("interior").style.display = 'none'
+				} else {
+					document.getElementById("interior").style.display = 'inline'
+				}
+			}
+			
+			document.getElementById("btnEscondeElement").onclick = function(){
+				if(document.getElementById("interior2").style.visibility == 'visible'){ //propiedad style, con valor interno display
+					// alert("Entró");
+					document.getElementById("interior2").style.visibility = 'hidden'
+				} else {
+					// alert("Falso");
+					document.getElementById("interior2").style.visibility = 'visible'
+				}
+			}			
+		}
+	</script>	
+</head>
+<body>
+	<table class="bordeado">
+		<tr>
+			<td style="vertical-align: top; width: 80%">
+				<img id="orange1" src="img/wittman.jpg"/>
+				<img id="orange2" src="img/wittman.jpg"/>
+			</td>
+			<td style="vertical-align: top;">Left:
+				<input type="text" id="leftText"/><br/>
+				Top:
+				<input type="text" id="topText"/><br/>
+				Position:
+				<select id="positioning">
+					<option>relative</option>
+					<option>absolute</option>
+				</select><br/>
+				<input type="button" id="btnPosition" value="Update"/>
+			</td>
+		</tr>
+	</table>
+	<article class="bordeado">
+		<header>
+			<hgroup>
+				<h1>Transform</h1>
+			</hgroup>			
+		</header>
+		<img id="wittman" src="img/wittman2.jpg" style="position:relative"/>
+	</article>
+	<article class="bordeado">
+		<hgroup>
+			<h1>Show and Hide</h1>
+		</hgroup>
+		<section id="interior">
+			<p>Esto será ocultado de alguna manera</p>
+		</section>
+		<section id="interior2">
+			<p>Esto será escondido conservando el espacio</p>
+		</section>
+		<button type="button" id="btnHideElement">Show/Hide Element</button>
+		<button type="button" id="btnEscondeElement">esconde/Muestra Element</button>
+	</article>
+</body>
+</html>

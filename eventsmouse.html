@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+		p{
+			margin: 0px;
+		}
+		.escalar{
+			transform: scale(1.5);
+		}
+		#yellowBox{
+			background-color: yellow;
+			border-radius: 50%;
+			height: 100px;
+			width: 100px;
+		}
+		/*Estilo para caja soltada*/
+		.dropped {
+			width: 50%;
+			height: 50%;
+			position: relative;
+			top: 25%;
+			left: 25%;
+			background-color:black;
+		}
+		/*Estilo sobre elemento*/
+		.over {
+			transform: scale(1.1);
+		}
+		.bucket {
+			width: 100px;
+			height: 100px;
+			margin: 10px 10px 10px 10px;
+			position:absolute;
+		}
+		.chip {
+			width:20px;
+			height:20px;
+			position:absolute;
+		}
+		div:first-of-type {
+			background-color: red;
+		}
+		div:nth-of-type(2) {
+			background-color: green;
+			left:25%;
+		}
+		div:nth-of-type(3) {
+			background-color: blue;
+			left:50%;
+		}
+		#chip {
+			background-color: black;
+			width:50px;
+			height:50px;
+		}
+		.begin {
+			position:absolute;
+			left: 150px;
+			top: 150px;
+		}		
+	</style>
+	<script type="text/javascript">
+		/**********************************/
+		/*******EVENTOS DEL MOUSE***/
+		/**********************************/
+			// - click //Click
+			// - dblclick //Doble click
+			// - mousedown //click o click derecho
+			// - mouseup // soltar click o click derecho
+			// - mouseenter/mouseover // cuando el mouse entra 
+			// - mouseleave // cuando el mouse sale
+			// - mousemove //al mover mouse
+
+		window.onload = function(){
+			document.getElementById("yellowBox").addEventListener("mousemove", yellowBoxClick);
+			document.getElementById("yellowBox").addEventListener("mouseenter", entraYellow);
+			document.getElementById("yellowBox").addEventListener("mouseleave", saleYellow);
+
+			//Drag and Drop
+			var chip = document.getElementById("chip");
+			chip.addEventListener("dragstart", function (){ 
+				//Prepara los datos a trasladar ("Text",id del elemento)
+				window.event.dataTransfer.setData("Text", this.id); 
+			});
+
+			var b1 = document.getElementById("bucket1");
+			b1.addEventListener("dragenter", function () {
+				//Adiciona clase over
+				b1.classList.add("over");
+				window.event.returnValue = false;
+			});
+			b1.addEventListener("dragleave", function () {
+				//Quita clase over
+				b1.classList.remove("over");
+			});
+			b1.addEventListener("dragover", function () {
+				//Se adiciona pues los div no soportan drag and drop
+				window.event.returnValue = false;
+			});
+			b1.addEventListener("drop", function () {
+				window.event.returnValue = false;
+				//Obtiene datos de elemento arrastrado (chip)
+				var data = event.dataTransfer.getData("Text");
+				var d = document.getElementById(data);
+				//Quita y pone estilos
+				d.classList.remove("begin");
+				d.classList.add("dropped");
+				this.appendChild(d);
+			});
+
+			/**********************************/
+			/*******EVENTOS PERSONALIZADOS***/
+			/**********************************/			
+
+			//Se crea con CustomEvent(nombreevento,detalles)
+			myEvent = new CustomEvent(
+				"unaAccion",
+				{
+					detail: { description: "Esta es la descripcion del evento Personalizado",
+					timeofevent: new Date(),
+					eventcode: 2 },
+					bubbles: true,
+					cancelable: true
+				}
+			);	
+			//Se adiciona el evento
+			document.addEventListener("unaAccion", customEventHandler);
+			// dispatchEvent se usa para disparar el evento
+			document.dispatchEvent(myEvent);
+
+			function customEventHandler() {
+				console.log(window.event.detail.description);
+			}			
+		}
+
+		function yellowBoxClick() {
+			document.getElementById("datosC").innerHTML = 
+				"VENTANA - Client X: " + window.event.clientX + " ClientY: " + window.event.clientY;
+			document.getElementById("datosO").innerHTML = 
+				"ELEMENTO - offsetX: " + window.event.offsetX + " offsetY: " + window.event.offsetY;
+			document.getElementById("datosS").innerHTML = 
+				"PANTALLA - screen X: " + window.event.screenX + " screenY: " + window.event.screenY;
+		}
+		function entraYellow(){
+			this.classList.add("escalar"); //Agrega clase al elemento
+		}
+
+		function saleYellow(){
+			this.classList.remove("escalar");
+		}
+	</script>
+</head>
+<body>
+	<header>
+		<h1>Eventos del Mouse</h1>
+	</header>
+	<article>
+		<hgroup>
+			<h3>Eventos varios:</h3>
+		</hgroup>
+		<section>
+			<div id="yellowBox">
+			</div>
+			<p id="datosC"></p>
+			<p id="datosO"></p>
+			<p id="datosS"></p>
+		</section>
+		<section>
+			<div id="bucket1" class="bucket"></div>
+			<div id="bucket2" class="bucket"></div>
+			<div id="bucket3" class="bucket"></div>
+			<!-- Debe tener la propiedad draggable en true -->
+			<div id="chip" draggable="true" class="chip"></div>			
+		</section>
+	</article>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Consumo de datos</title>
+	<link rel="stylesheet" href="css/estilo.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		//*********************************************
+		//* XMLHttpRequest *
+		//*********************************************
+		window.onload = function(){
+			// document.getElementById("imagen").src = "./img/wittman.jpg";
+		}
+		$("document").ready(function () {
+			$("#btnEnviar2").click(function () {
+				var xReq = new XMLHttpRequest();	//Crea nuevo objeto tipo XMLHttpRequest
+				//open: coloca propiedades:
+				// 1. método
+				// 2. url
+				// 3. async (boolean)
+				// 4. user
+				// 5. pass
+				var XMLHTTPReadyState_COMPLETE = 4;
+
+				// xReq.open("GET", "datosxml.xml", true);	//Recomendable colocar true(asíncrono)
+				// También recibe datos en json
+				xReq.open("GET", "datosjson.js", true);	//Recomendable colocar true(asíncrono)
+				
+				xReq.timeout = 2000;	//timeout: por default es 0, debería iniciar en otro número
+				xReq.ontimeout = function () {
+					$("#results").text("Se ha terminado el tiempo");
+				}
+
+				xReq.onreadystatechange = function (e) {
+					//Cuando el estado cambia a 4 y status a 200 mostrará resultados
+					if (xReq.readyState == 4 && xReq.status == "200") {
+						// $("#results").text(JSON.stringify(xReq.response));
+						$("#results").text(xReq.response);
+					} else {
+						$("#results").text(xReq.statusText);
+					}
+				}
+				xReq.send(null); //send: hace la solicitud y recibe respuesta
+				// $("#results").text(xReq.response);
+			});
+
+			$("#btnEnviar3").click(function(){
+				var xmlData = "<Person firstname='Rick' lastName='Delorme' hairColor='Brown' eyeColor='Brown' /> ";
+				var xReq = new XMLHttpRequest();
+				xReq.open("POST", "/ReceiveXMLData.aspx", false);
+				xReq.responseType
+				xReq.send(xmlData);	 //Esto enviaría los datos XML a la url especificada			
+			});
+
+
+			$("#btnEnviar4").click(function(){
+				var xReq = new XMLHttpRequest();
+				xReq.open("GET", "./img/wittman.jpg", true);
+				// xReq.open("GET", "http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg", true);				
+				xReq.responseType = 'blob';	//Si se va a enviar o recibir un objeto diferente a json y 
+				// xReq.responseType = 'Blob';
+				// xml, se coloca blob
+				xReq.send(null);
+
+				xReq.onreadystatechange = function (e) {
+					//Cuando el estado cambia a 4 y status a 200 mostrará resultados
+					if (xReq.readyState == 4 && xReq.status == "200") {
+						// $("#results").text(JSON.stringify(xReq.response));
+						console.log(xReq.response, typeof xReq.response, xReq.readyState,xReq.status);
+						var fr = new FileReader();
+						fr.readAsArrayBuffer(xReq.response);
+
+						var blob = xReq.response;
+
+						document.getElementById("imagen").src = window.URL.createObjectURL(blob);
+						// $("#imagen").attr('src',"./img/wittman.jpg");
+					} else {
+						// $("#results").text("Estado: " + xReq.statusText + " - " +xReq.readyState + " - " + xReq.status);
+						console.log("error");
+					}
+				}
+
+			});
+
+			// Para usar el evento submit, y usar serializa
+			// todos los input del formulario
+			// deben tener la propiedad name asignada.
+			$("#signupForm").submit(function () {
+				var qString = $(this).serialize(); //toma toda la información de todos los input y los guarda en qstring
+				alert(qString);
+				$.ajax({
+					url: 'processSignUp.aspx',
+					type: "POST",
+					data: qString,
+					success: function (r) {
+					}
+				});
+				return false;
+			});				
+		});
+
+
+	</script>
+</head>
+<body>
+	<header>
+		<hgroup>
+			<h1>Consumo de datos</h1>
+		</hgroup>
+	</header>
+	<article>
+		<section class="sombra">
+			<form>
+				<div id="results">
+					<img id="imagen">
+				</div>
+				<input type="button" id="btnEnviar2" value="Terminar">
+				<input type="button" id="btnEnviar3" value="Sin archivo">
+				<input type="button" id="btnEnviar4" value="Imagen">
+			</form>
+		</section>
+		<section class="sombra">
+			<form id="signupForm">
+				First Name:
+				<input type="text" id="firstName" name="firstName"/><br/>
+				Last Name:
+				<input type="text" id="lastName" name="lastName"/><br/>
+				<button type="submit">Submit</button>
+			</form>			
+		</section>	
+	</article>
+</body>
+</html>

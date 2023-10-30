@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Program flow</title>
+	<style type="text/css">
+		canvas{
+			border: 1px solid black;
+			width: 60px;
+			height: 40px;
+		}
+		p{
+			padding: 0px;
+			margin: 0px;
+		}
+		section{
+			border: 1px solid black;
+		}
+		#sobre{
+			font-weight: bold;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			// 1. if
+			var i =9;
+			var resul = "";
+
+			if(i>8){
+				resul = "i es mayor que 8: " + i;
+				mostrar(resul);
+			}
+			// 1.1 if admite varias expresiones en paréntesis
+			if(i>2,i>4,i>6){
+				resul = "i es mayor que 2,4 y 6: " + i;
+				mostrar(resul);
+			}
+
+			// 1.2 Se pueden anidar los if con o sin paréntesis
+			i=3;
+			if(i>4)
+				resul = "i es mayor que 3: " + i;
+			else
+				if(i>1) 
+					resul = "i es mayor que 1: " + i;
+				else 
+					resul = "i es menor que 1: " + i;
+			mostrar(resul);
+
+			// 1.3  Se puede usar && o || como operador lógico
+			var j=8,i=9;
+
+			if(j<6 || i>8){
+				mostrar("j menor que 6: " + j + " o i mayor que 8: " + i);
+			}
+
+			// 2. Switch (funciona como en java al colocar los break)
+			var canvas = document.getElementById("canvas1");
+			canvas.style.background='green';
+			
+			canvas.onmouseover = function(){
+				canvas.style.background='green';
+				validar();
+			}
+
+			canvas.onmouseout = function(){
+				canvas.style.background='yellow';
+				validar();
+			}
+
+			canvas.onclick = function(){
+				canvas.style.background='red';
+				validar();
+			}
+
+			function validar(){
+				switch (canvas.style.backgroundColor) {
+					case 'yellow':
+						sobreescribir('slow down');
+						break;
+					case 'green':
+						sobreescribir('proceed');
+						break;
+					case 'red':
+						sobreescribir('stop');
+						break;
+					default:
+						sobreescribir('unknown condition');
+						break;
+				}
+			}
+
+			// 3 Expresion ternaria
+			canvas.style.backgroundColor == 'green' ? mostrar('proceed') : mostrar('stop');
+			
+			//*********************************************
+			//* ARRAYS *
+			//********************************************//			
+			// Se puede iniciar de 4 formas
+			var anArray = new Array(); //vacio
+			var anArray = new Array(5); // 5 elementos
+			var anArray = new Array('soccer', 'basketball', 'badminton'); // 3 elementos con valor
+			var anArray = ['soccer', 'basketball', 'badminton']; // 3 elementos con valor
+			anArray[9] = 'Fussbol'; // al intentar accede a casilla 9, array se redimensiona
+
+			// - Arreglo multidimensional
+			var arreglo2D = new Array(3);
+			arreglo2D[0] = new Array(2);
+			arreglo2D[1] = new Array(2);
+			arreglo2D[2] = new Array(2);
+
+			// Métodos de array : Concat
+			var arr1 = ['pera','manzana','fresa'];
+			var arr2 = ['papa','yuca','arracacha'];
+			var fusion = arr1.concat(arr2);
+			console.log("fusion: " + fusion);
+			console.log("fusion[0]: " + fusion[0]); // pera
+			console.log("fusion[fusion.length - 1]: " + fusion[fusion.length - 1]); // arracacha
+
+			// Métodos de array : indexOf
+			var indice = fusion.indexOf('fresa',0); //Búsqueda ascendente (izq a der) a partir de 0
+			console.log("fusion.indexOf('fresa',0): " + indice);
+			var indice = fusion.lastIndexOf('fresa',fusion.length); //Búsqueda descendente (der a izq) a partir de la longitud del array
+			console.log("fusion.lastIndexOf('fresa',fusion.length): " + indice);
+
+			// Métodos de array : join
+			var cadenaUnion = fusion.join('-'); //Recibe como parámetro el caracter para separar los elementos
+			console.log("fusion.join('-'): " + cadenaUnion);
+
+			// Métodos de array : reverse
+			var reverso = fusion.reverse();
+			console.log("fusion.reverse(): " + reverso);
+
+			// Métodos de array : sort			
+			console.log("arr2: " + arr2);
+			console.log("arr2.sort(): " + arr2.sort()); //Ordena ascendentemente (Nota: al aplicarlo modifica el objeto)
+
+			// Métodos de array : slice	
+			var arr3 = arr1.slice(2,3); //indice inical (ind), número de casilla final (numC)
+			// 'pera','manzana','fresa' -> ind0 numC1, ind1 numC2, ind2 numC3
+			console.log("arr1: " + arr1);
+			console.log("arr1.slice(2,3): " + arr1.slice(2,3));
+			console.log("arr1.slice(0,2): " + arr1.slice(0,2));
+
+			// Métodos de array : splice	
+			var arr3 = new Array('soccer', 'basketball', 'hockey', 'football', 'cricket', 'rugby',
+									'tennis', 'badminton');
+			// indice incial, numero de posiciones, OPCIONAL: elementos a reemplzar
+			var splicedItems = arr3.splice(1, 3, 'GOLF', 'CURLING', 'DARTS');
+			console.log("arr3: " + arr3);
+			console.log("splicedItems = arr3.splice(1, 3, 'GOLF', 'CURLING', 'DARTS'): " + splicedItems);
+			var spliced2 = arr3.splice(1,3);
+			console.log("arr3: " + arr3);
+			console.log("arr.splice(1,3): " + spliced2);
+
+			//TIPOS ESPECIALES : ADICION DE ELEMENTOS A ARRAYS
+			//push y pop
+			var arr1 = ['pera','manzana','fresa'];
+			console.log("arr1: " + arr1);
+			arr1.push('BANANO','MELON'); // Agrega elemento(s) al final
+			console.log("Después de arr1.push('BANANO','MELON'): " + arr1);
+			console.log("arr1.pop(): " + arr1.pop()); //Elimina y devuelve el último elemento del array
+			console.log("arr1: " + arr1);
+
+			//shift y unshift
+			var arr1 = ['pera','manzana','fresa'];
+			console.log("arr1: " + arr1);
+			arr1.unshift('NARANJA','MANDARINA'); // Agrega elemento(s) al inicio
+			console.log("Después de arr1.unshift('NARANJA','MANDARINA'): " + arr1);
+			console.log("arr1.shift(): " + arr1.shift()); //Elimina y devuelve el primer elemento del array
+			console.log("arr1: " + arr1);
+
+			// MÉTODOS AVANZADOS
+			//every y some	
+			//every -> Devuelve true si todos cumplen la condición
+			var arr1 = new Array(0,2,4,6,8,9,10,12);
+			var todosPar = arr1.every(chequearPar,this); //funcion que deveuelve true o false, referencia opcional
+			console.log("arr1: " + arr1);
+			if(todosPar)
+				console.log("Todos par:" + todosPar);
+			else
+				console.log("NO Todos par:" + todosPar);
+
+			function chequearPar(valor,indice,arreglo){ //TODOS tienen que que cumplir la condición para ser true
+				return (valor%2)==0;
+			}
+
+			function chequearImPar(valor,indice,arreglo){ //TODOS tienen que que cumplir la condición para ser true
+				return (valor%2)!=0;
+			}
+
+			//some -> Devuelve true si alguno cumple la condición
+			var algunImp = arr1.some(chequearImPar,this);
+			
+			if(algunImp)
+				console.log("Algún impar:" + algunImp);
+			else
+				console.log("No hay ningún impar:" + algunImp);
+
+			// forEach
+			var sportsArray = ['soccer', 'basketball', 'hockey', 'football', 'cricket', 'rugby'];
+			console.log("sportsArray: " + sportsArray);
+			//Se combinó sort y foreach. Recibe como parámetro una función. Solo recorre el array
+			sportsArray.sort().forEach(offerSport); 
+
+			function offerSport(value, index, array) {
+				console.log("En funcion->Elemento " + index + " = " + value);
+			}
+
+			// filter
+			var arr1 = new Array(0,2,4,6,8,9,10,12);
+			var resultado = arr1.filter(chequearPar2,arr1); //funcion que deveuelve el mismo arreglo solo con los valores que cumplen la condición
+			console.log("arr1: " + arr1);
+			console.log("Solo pares:" + resultado);
+
+			function chequearPar2(valor,indice,arreglo){ //TODOS tienen que que cumplir la condición para ser true
+				return (valor%2)!=0;
+			}
+
+			//map
+			var numbers = [1, 2, 3, 4, 5, 6, 7, 8];
+			var squares = numbers.map(squareNumber, numbers); //Procesa cada elemento del array según condición
+
+			console.log("numbers: " + numbers);
+			console.log("numbers.map(squareNumber, numbers):" + squares);
+
+			function squareNumber(value, position, array) {
+				return value * value;
+			}
+
+			//reduce y reducerigth
+			var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+			var factorials = numbers.reduce(factorial);
+
+			console.log("numbers: " + numbers);
+			console.log("numbers.reduce(factorial):" + factorials);
+
+			function factorial(previous, current) {
+				console.log("previous * current: " + previous + "*" + current + "=" + previous * current);
+				return previous * current;
+			}
+
+			// FLUJOS DE CONTROL ITERATIVOS	
+			//Funcionan las mismas reglas de incremento y preincremento de java
+			//for
+			var alphabet = 'abc';
+			for (var i = 0; i < alphabet.length; i++) {
+				console.log("Letra " + i + ": " + alphabet[i]);
+			}
+
+			//for in
+			var person = { 
+				firstName: "Jane",
+				lastName: "Doe",
+				birthDate: "Jan 5, 1925", 
+				gender: "female" 
+			};
+			console.log(JSON.stringify(person));
+			for (var prop in person) {
+				console.log("Propiedad: " + prop + " valor: " + person[prop]);
+			}
+
+			//while
+			var i = 5;
+			while(i >0){
+				console.log("en for: " + i--);
+			}
+
+			//do while
+
+			do{
+				console.log("en do while: " + i);
+			}while(i!=0);
+
+			//Atención con == y ===
+			var j = 2000, k ='2000';
+			console.log(j == k); //Evalua solo valor (aparece true)
+			console.log(j === k); //Evalua valor y tipo (aparece false pues son distintos tipos)
+
+
+			//*********************************************
+			//* FUNCIONES DE IMPRESION *
+			//********************************************//
+
+			function mostrar(valor) {
+				var res = document.createElement("p");
+				console.log(valor);
+				res.innerHTML = valor;
+				document.getElementById("sec1").appendChild(res);
+
+				// document.getElementById("sec1").insertBefore(
+				// 	res,document.getElementById("sobre"));
+			}
+
+			function sobreescribir(valor) {
+				var res = document.createElement("p");
+				// console.log(valor);
+				res.setAttribute("id","sobre")
+				res.innerHTML = valor;
+				document.getElementById("sec1").replaceChild(
+					res,
+					document.getElementById("sobre")
+					);
+			}			
+		}
+	</script>
+</head>
+<body>
+	<header>
+		<hgroup>
+			<h1>Flujo de programa</h1>
+		</hgroup>
+	</header>
+	<article>
+		<section>
+			<canvas id="canvas1"></canvas>
+		</section>
+		<section id="sec1">
+			<p id="sobre">Sobreescribible</p>
+		</section>
+	</article>
+</body>
+</html>

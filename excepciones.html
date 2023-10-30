@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Excepciones</title>
+	<style type="text/css">
+		canvas{
+			border: 1px solid black;
+		}
+	</style>
+	<script type="text/javascript">
+
+		// Objeto personalizado
+		var ball = {
+			x: -1,
+			y: -1,
+			draw: function DrawBall(c) {
+				if (this.x < 0)
+					throw new Error(25, "Invalid X coordinate");
+			}
+		}	
+		window.onload = function(){
+			try{
+				window.dosomeunsupportedmethod();
+			} catch (e) {
+				console.log("Browser does not support the desired functionality: ");
+				console.log("e.message: " + e.message);
+				console.log("e.number: " + e.number);
+				console.log("e.name: " + e.name);
+			}
+
+			// Al colocar el código en try catch, muestra los errores con el log
+			// Funciona igual que en Java, la declaración de  variables tienen que estar fuera de try
+			var canvas;
+			var context;
+			try {
+				canvas = document.getElementById("MiCanvas");
+				context = canvas.getContext("2d");
+				context.fillStyle = "blue";
+				contxt.arc(50, 50, 25, 0, 360);
+				context.fill(); //Acá está el error
+				context.strokeStyle = "red";
+				context.stroke();
+			} catch (e) {
+				context.strokeText(e.message, 50, 50);
+				console.log(e.message);
+			} finally {
+				console.log("Esto es finally");
+			}
+
+			//Uso de objeto con lanzamiento de excepciones
+			try {
+				var canvas = document.getElementById("MiCanvas");
+				var context = canvas.getContext("2d");
+				ball.draw(context);
+			} catch (e) {
+				console.log("Error con objeto: " + e.message);
+			}			
+
+
+			//Valores Null
+			try {
+				var a, b, c; //variables no inicializadas inician en null
+				a = 5;
+				b = 10;
+				var result = multiplyNumbers(a, b, c);
+				console.log(result);
+			} catch (e) {
+				console.log(e.message);
+			}
+
+			function multiplyNumbers(first, second, third) {
+				if (first == null || second == null || third == null)
+				{
+					throw new Error(5, "Forgot to initialize a number.");
+				}
+				return first * second * third;
+			}			
+		}
+	</script>
+</head>
+<body>
+	<header>
+		<h1>Excepciones</h1>
+	</header>
+	<article>
+		<section>
+			<canvas id="MiCanvas"></canvas>
+		</section>
+	</article>
+</body>
+</html>

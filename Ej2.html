@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<script>
+		window.onload = function(){
+			// var subParaV = document.getElementsByClassName("subPara");
+			var P1V = document.getElementById("P1");
+			var divs = document.getElementsByTagName("div"); // Obtiene cantidad de elementos por etiqueta (tag)
+			var clases = document.getElementsByClassName("subPara");
+
+			var qp = document.querySelectorAll("p"); // Devuelve cantidad de <p> en la pag
+			var qo = document.querySelector("#outerDiv"); // Devuelve el id outerDiv
+
+			var nuevoArticulo = document.createElement("article"); // Crea nuevo elemento en el DOM (pero no es visible)
+			nuevoArticulo.innerText = "Este es un nuevo elemento <article>";
+			qo.appendChild(nuevoArticulo); // Adiciona el elemento en outerDiv
+			
+			var nuevo = document.getElementById("outerDiv").insertBefore( // Posiciona nuevo elemento antes de otro
+							document.createElement("article"),
+							document.getElementById("innerDiv"));
+			nuevo.innerHTML = "Otro nuevo elemento < articulo > acá";
+
+			var innerDiv = document.getElementById("innerDiv");
+			var p = innerDiv.removeChild(document.getElementById("P1"));	// Remueve elemento
+
+			// var innerDiv = document.getElementById("innerDiv");
+			// innerDiv.removeNode(true); // No es estándar (Solo IE)
+
+			var innerDiv = document.getElementById("innerDiv");
+			var newDiv = document.createElement("div");
+
+			for (var i = 0; i < innerDiv.childNodes.length; i++) {
+				var anchor = newDiv.appendChild(document.createElement("a"));
+				anchor.setAttribute("href", "http://www.bing.ca");
+				anchor.text = innerDiv.childNodes[i].textContent;
+				newDiv.appendChild(document.createElement("br"));
+			}
+			qo.appendChild(newDiv);
+			// innerDiv.replaceNode(newDiv); //Reemplaza el nodo (pero no es estándar - Solo IE)
+
+			console.log("querySelectorAll p: " + qp.length);
+			console.log("querySelector outerDiv: " + qo.innerHTML);
+
+
+			console.log("<p> elements with class subPara: " + clases.length);
+			console.log("Cantidad de <div> en la pag: " + divs.length);
+
+
+
+			P1V.addEventListener('click',function(){
+				P1V.innerHTML += "- Id P1";
+			});
+		}
+	</script>
+</head>
+<body>
+	<div id="outerDiv">
+		<p class='mainPara'>Main Paragraph</p>
+		<ul>
+			<li>First List Item</li>
+			<li>Second List Item</li>
+			<li>Third List Item</li>
+			<li>Fourth List Item</li>
+		</ul>
+		<div id="innerDiv">
+			<p class='subPara' id='P1'>Paragraph 1</p>
+			<p class='subPara' id='P2'>Paragraph 2</p>
+			<p class='subPara' id='P3'>Paragraph 3</p>
+			<p class='subPara' id='P4'>Paragraph 4</p>
+		</div>
+		<table>
+			<tr>
+				<td>Row 1
+				</td>
+			</tr>
+			<tr>
+				<td>Row 2
+				</td>
+			</tr>
+			<tr>
+				<td>Row 3
+				</td>
+			</tr>
+			<tr>
+				<td>Row 4
+				<td>
+			</tr>
+			<tr>
+				<td>Row 5
+				</td>
+			</tr>
+		</table>
+		<input type="text"/><input type="submit" value="Submit"/>
+		<video src="samplevideo.mp4" controls poster="img/avatar.png" height="100" width="200">
+
+		<video controls height="100" width="200" poster="img/avatar.png">
+			<source src="samplevideo.ogv" type="video/ogg"/>
+			<source src="samplevideo.mp4" type="audio/mp4"/>
+			<object>
+				<p>Video is not supported by this browser.</p>
+			</object>
+		</video>		
+		</video>
+	</div>
+</body>
+</html>

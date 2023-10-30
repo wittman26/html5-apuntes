@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Position</title>
+		<link rel="stylesheet" href="css/estilo.css"> <!-- En HTML5 ya no es necesario esto: type="text/css" -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<style>
+		body,html{
+			font-family: 'cocon'
+		}
+		header{
+			background-color: #ececec;
+		}
+
+		section{
+			background-color: #ece8e8;
+		}
+		h4{
+			color: orange;
+		}
+		.parr {
+			position:fixed;
+			left: 1px;
+			color: green;
+			text-shadow: 2px 2px 1px black;
+		}
+	</style>
+	<script>
+		var pos = 1;
+		$("document").ready(function () {
+			setInterval(function () {
+				var newPos = (pos + 1) + "px";
+				$("#scrollMe").css("left", newPos);
+				pos += 1;
+			}, 20);
+		});
+	</script>	
+</head>
+<body>
+	<header>
+		<hgroup>
+			<h1>Posicionamiento</h1>
+		</hgroup>
+	</header>
+	<section>
+		<div style="background-color: gray; position: relative">
+			div1
+			<div style="background-color: blue; display: inline-block; position:fixed; left: 320px; top:10px; ">
+				Position:fixed; left: 320px; top:10px;
+			</div>
+			<div style="background-color: #4dff00; display: inline-block; position:relative; left: 60px; ">
+				Position:relative
+				<div style="background-color: red; display: inline-block; position:absolute; left: 110px; top:0px; width: 100px" >
+					position:absolute
+				</div>
+			</div>
+		</div>
+		<div style="background-color: gray;">
+			<h4>Float</h4>
+			<p style="width: 500px;margin-left: 20px;" >
+				Lorem ipsum dolor sit amet,<img src="img/wittman.jpg" style="float: left;" alt="float: left;" /> consectetuer adipiscing elit, sed
+				diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut
+				wisi enim<img src="img/wittman2.jpg" width="100px" height="100px" style="float: right;" alt="float: right;" /> ad minim veniam, quis nostrud exerci tation ullamcorper
+				suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure
+				dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu
+				feugiat nulla facilisis at vero eros et accumsan et iusto odio...
+			</p>
+			<p id="scrollMe" class="parr">This text moves accross the screen.</p>
+		</div>
+		
+	</section>
+</body>
+</html>

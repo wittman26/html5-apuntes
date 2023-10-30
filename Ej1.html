@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+
+
+	<body>
+	<header>
+		<h1>Usando marcas semánticas HTML5</h1>
+		<nav>
+			<a href="Home.html">Document Structure</a>
+			<a href="Blog.html">Writing Code</a>
+			<a href="About.html">Styles</a>
+		</nav>
+	</header>
+
+	<article>
+		<header>
+			<hgroup>
+				<h1>Our first new Article</h1> <!-- Renderiza diferente porque está dentro de hgroup -->
+			</hgroup>
+		</header>
+		<section>
+			<h1>Section 1</h1>
+			<time datetime="2011-10-12" pubdate>publicado 12-10-2011</time>
+			<p>Some details about section 1</p>
+			<aside>Did you know that 7/10 is 70%</aside>
+		</section>
+		<section>
+			<h1>Section 2</h1>
+		</section>
+	</article>
+
+	<article>
+		<header>
+			<hgroup>
+				<h1>Second huge article</h1>
+			</hgroup>
+		</header>
+		<p>Provide some useful information in the article</p>
+		<p>I love the movie <cite>The Matrix</cite></p>
+	</article>
+
+	<article>
+		<header>
+			<hgroup>
+				<h1>Third huge article</h1>
+			</hgroup>
+		</header>
+		<p>Provide some useful information in the third article</p>
+			<figure>
+				<img src="img/avatar.png" style="width:50px; height:50px;"/>
+				<figcaption>Fig 1: A really juicy orange.</figcaption>
+			</figure>
+		<p>Our goal is to have 1000 users:</p>
+		<span>0</span>
+			<progress value="500" max="1000"></progress>
+		<span>1000</span>	
+
+		<p>Data download is in progress, please wait <mark>patiently</mark>:</p>
+		<progress max="5"></progress>	
+	</article>
+
+	<article>
+		<header>
+			<hgroup>
+				<h1>Uso de tablas</h1>
+			</hgroup>
+		</header>
+		<table>
+			<thead>
+				<td colspan="2">Fila 1</td>
+			</thead>
+			<tr>
+				<td>Fila 2 C1</td>
+				<td>Fila 2 C2</td>
+			</tr>
+		</table>
+
+		<table>
+			<tr>
+				<td colspan="3" id="Header">boo</td>
+			</tr>
+			<tr>
+				<td rowspan="3" id="LeftBar">boo</td>
+				<td rowspan="3" id="MainContent">boo</td>
+				<td id="RightSideTop">boo</td>
+			</tr>
+			<tr>
+				<td id="RightSideMiddle">boo</td>
+			</tr>
+			<tr>
+				<td id="RightSideBottom">boo</td>
+			</tr>
+			<tr>
+				<td colspan="3" id="Footer">boo</td>
+			</tr>
+		</table>		
+
+	</article>
+	</body>
+</html>

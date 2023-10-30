@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Estructura de CSS</title>
+	<style>
+		#herencia{
+			font-family: sans-serif;
+			color: green;
+		}	
+		p {
+			font-family: serif;
+			color: blue;
+		}
+		p {
+			color: purple !important;
+		}
+		p{
+			color: yellow;
+		}					
+	</style>
+</head>
+
+<body>
+	<section>
+		<article id="herencia">
+			Este párrafo heredan CSS del article "herencia"
+			<p>Este párrafo sobreescribe el CSS del article "herencia"</p>			
+		</article>		
+	</section>
+</body>
+</html>

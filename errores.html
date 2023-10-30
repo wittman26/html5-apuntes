@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ERRORES</title>
+	<meta charset="utf-8">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>	
+	<style type="text/css">
+		p{
+			margin: 0px;
+		}
+		#hijo p:nth-child(odd) { /*párrafos hijo impar*/
+		    background: red;
+		}
+		#hijo p:nth-child(even) { /*párrafos hijo par*/
+		    background: yellow;
+		}
+
+		/*Aplica a todos menos el primer y último hijo*/
+		#hijo2 p:not(:first-child):not(:last-child){
+			background: green;
+		}
+		#hijo2 p:not(:hover){
+			color: red;
+		}
+		svg[id$="ico"]{
+			background-color: blue;
+		}
+		div[id*="name"]{
+			background-color: blue;
+		}
+		.img{
+			background-color: black;
+			color: white;
+			border-radius: 50%;
+			height: 80px;
+			width:  80px;
+			text-align: center;
+			transition: all 0.4s linear;
+			transform: rotate(0deg);
+		}
+
+		.img p{
+			padding-top: 30px;
+			transform: rotate(0deg);
+			transition: all 0.4s linear;			
+		}
+		.img:hover {
+			transform: rotate(360deg);
+			background-color: gray;
+		}
+
+		#div1, #div2 {
+		    width:100px;
+		    height:50px;
+		    padding:10px;
+		    border:1px solid #aaaaaa;
+		}
+		#usoHyphens li p{
+			width: 55px;
+    		border: 1px solid black;
+		}
+		p.none {
+			-webkit-hyphens: none;
+			-ms-hyphens: none;
+			hyphens: none;
+		}
+		p.manual {
+			-webkit-hyphens: manual;
+			-ms-hyphens: manual;
+			hyphens: manual;
+		}
+		p.auto {
+			-webkit-hyphens: auto;
+			-ms-hyphens: auto;
+			hyphens: auto;
+		}
+		#mainGrid {
+			display: grid;
+			grid-template-columns: 150px 150px 150px 150px;
+			grid-template-rows: 25px 25px;
+		}
+
+		.container {
+	      font-size: small;
+	      width: 98%;
+	      height: 100%;
+	      display: -ms-grid;
+	      -ms-grid-columns: 1fr 1fr 1fr;
+	      -ms-grid-rows: 1fr 1fr 1fr;
+	    }
+	    .exclusion {
+	      -ms-grid-row: 2;
+	      -ms-grid-column: 2;
+	      background-color: lime;
+	      -ms-wrap-flow: both;
+	      padding: 10px;
+	      -ms-wrap-margin: 15px;
+	    }
+	    .dummy_text {
+	      -ms-grid-row: 1;
+	      -ms-grid-column: 1;
+	      -ms-grid-column-span: 3;
+	      -ms-grid-row-span: 3;
+	    }		
+
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			document.getElementById("lienzo").onclick = function(){alert('Click canvas')};
+			var t = 2;
+			var z =t ^ 5;
+			console.log("Resultado: " + z);
+			/* Uso de style */
+			var parrafo = document.getElementById("test");
+			parrafo.style.position = "relative";
+			parrafo.style.top = "5px";
+
+			document.getElementById("test").style.color = 'red';
+			/* Propiedades de navigator */
+			mostrarPropiedades();
+
+			/* onerror de window*/
+			onerror = function(){
+				console.log("hubo un error misterioso!!");
+			}
+
+			/* geolocation */
+			var locacion = navigator.geolocation;
+			var opciones = {enableHighAccuracy:true};
+
+			locacion.watchPosition(exitow,fallow);
+
+			function exitow(pos){
+				$("#localiza").text("Velocidad: " + pos.coords.speed);
+			}
+			function fallow(pos){
+				$("#localiza").text("Hubo un error");
+			}
+
+			/* uso de apply */
+			var miapp = {};
+			(function(){
+				this.cantidad = 100;
+				this.mostrar = function(value){
+					document.getElementById("cantidad").innerHTML += value;
+				}
+			}).apply(miapp);
+			miapp.mostrar(miapp.cantidad + 25);
+
+			/* Leer XML con ActiveXObject*/
+			leerXML();
+
+			var objEvt = document.getElementById("btnEventoPers");
+			
+
+			/* Eventos Personalizados */
+			objEvt.onclick = function(e){
+				console.log("click!!");
+				/* Agrega evento pero no lo dispara */
+				var evento = new CustomEvent(
+					"nuevoMensaje", 
+					{
+						detail: {
+							message: "Hello Moto!",
+							time: new Date(),
+						},
+						bubbles: true,
+						cancelable: true
+					}
+				);
+				document.getElementById("btnEventoPers").dispatchEvent(evento);
+			};
+
+			/* Dispara evento personalizado*/
+			objEvt.addEventListener("nuevoMensaje",recibeMens);
+
+			/* Uso de call */
+			var person = {
+			    firstName:"John",
+			    lastName: "Doe",
+			    fullName: function() {
+			        return this.firstName + " " + this.lastName;
+			    },
+			    adiciona: function(x,y) {
+			    	return x + y + this.z + this.w;
+			    }
+			}
+			var myObject = {
+			    firstName:"Mary",
+			    lastName: "Doe",
+			}
+			x = person.fullName.call(myObject); 
+			console.log("demo: " + x);
+
+			var o = {z:4,w:8};
+			console.log("Prueba: " + person.adiciona.call(o,1,2));
+
+			/* llamado a evento con nombre de elemento*/
+			$(document).on('click','#unBtn',function(){alert("Ha hecho click en un boton");})
+
+			for(var i=0; i<100;i++){
+				if(i%25==0){
+					console.log("no MOD 2: " + i + " - Operación: " + i%2);
+				} else {
+					// console.log("Si MOD 2: " + i + " - Operación: " + i%2);
+				}
+
+			}
+			
+		}
+
+			/* Drag and drop*/
+			function allowDrop(allowdropevent) {
+			    allowdropevent.target.style.color = 'blue';
+			    allowdropevent.preventDefault();
+			}
+
+			function drag(dragevent) {
+			    dragevent.dataTransfer.setData("text", dragevent.target.id);
+			    dragevent.target.style.color = 'green';
+			}
+
+			function drop(dropevent) {
+			    dropevent.preventDefault();
+			    var data = dropevent.dataTransfer.getData("text");
+			    dropevent.target.appendChild(document.getElementById(data));
+			    document.getElementById("drag").style.color = 'black';
+			}
+					
+			function recibeMens(e){
+				console.log("Evento Personalizado Disparado!");
+				console.log("Mensaje: " + e.detail.message);
+				console.log("Time: " + e.detail.time.toLocaleString());
+			}
+
+			function leerXML(){
+				if(window.XMLHttpRequest){
+					xmlHttp = new XMLHttpRequest();
+				} else {
+					xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+				xmlHttp.open("GET","datosxml.xml",false);
+				xmlHttp.send();
+				xmlDoc = xmlHttp.responseXML;
+				console.log("Escribiendo desde XML");
+				$("#nombre").text(xmlDoc.getElementsByTagName("nombre")[0].childNodes[0].nodeValue);
+				$("#apellido").text(xmlDoc.getElementsByTagName("apellido")[0].childNodes[0].nodeValue);
+				$("#nombre2").text(xmlDoc.getElementsByTagName("nombre")[1].childNodes[0].nodeValue);
+				$("#apellido2").text(xmlDoc.getElementsByTagName("apellido")[1].childNodes[0].nodeValue);
+			}
+
+			/* función privada*/
+			function formatear(){
+				var privado = function(datos){
+					return custom(datos);
+				}
+
+				return {
+					valor : function (input){
+						return privado();
+					}
+				}
+			}
+
+			function zoomIn(){
+				/* currentScale*/
+				console.log("Ha entrado");
+				var circulo = document.getElementById("grafico");
+				circulo.setAttribute("currentScale",20.0);
+			}
+
+			/* Distingue evento onblur y onfocus */
+			function enBlur(){
+				$("#aviso").text("Evento Blur");
+			}
+
+			function enFocus(){
+				$("#aviso").text("Evento Focus");
+			}	
+
+			/*Uso de val() en operaciones*/
+			function divide(){
+				if(isNaN($("#int1").val()) || isNaN($("#int2").val())){
+					throw("Uno o dos valores no numéricos");
+				}
+				alert($("#int1").val() / $("#int2").val());
+			}
+
+			function suma(){
+				alert($("#int1").val() + $("#int2").val()); /*Suma caracteres*/
+				alert(parseInt($("#int1").val()) + parseInt($("#int2").val())); /*suma valores*/
+			}
+
+			function eleccion(elemento,mensaje){
+				if(elemento.value == 'Elija una opcion')
+				{
+					alert(mensaje);
+					return true;
+				} else {
+					return false;
+				}
+			}
+
+			/*Objeto undefined*/
+
+			var customer = function(){
+				var name = "Contoso";
+				return {
+					getName : function(){
+						return name;
+					},
+					setName : function(nuevo){
+						name = nuevo;
+					}
+				};
+			}();
+			console.log(customer.name); /* Muestra undefined*/
+			
+			/*Creación de clase*/
+			function cliente(nom,ape){
+				nombre = "Javier" /*no se podrá leer*/
+				this.nom2 = "Nombre Default";
+				this.apellido = ape;
+			}
+
+			var cli1 = new cliente("Wisman","Gutierrez");
+			console.log(cli1.nombre);
+			console.log(new cliente().nom2);
+			console.log(cli1.apellido);
+
+			var cuadrado;
+			var tiempo = 0;
+			var velo = 0;
+
+			function animar(vel){
+				velo = vel;
+				cuadrado = $('#imagen');
+				cuadrado.currentTheta = 0; /* ángulo de rotación inicial*/
+				tiempo = setInterval(function(){
+					cuadrado.attr("transform","rotate(" + cuadrado.currentTheta + ")");
+					cuadrado.currentTheta += 0.6;
+				},velo)
+			}
+
+
+			function clickCanvas(){
+				alert("Ha hecho click en canvas!");
+			}
+
+
+		$("document").ready(function(){
+			/* Uso de show y text */
+			var selectedValues ="";
+			$("#btn1").show();
+			$("#btn1").text("cambia");
+			$("#pru").text("cambia desde jquery");
+
+			$("select option:selected").each(function(){
+				selectedValues += $(this).text() + ',';
+			});
+			console.log("Valores: " + selectedValues);
+
+			selectedValues ="";
+			$("#unSelect option:selected").each(function(){
+				selectedValues += $(this).text() + ',';
+			});
+			console.log("Valores 2: " + selectedValues);
+
+			$("#btn2").click(function(){
+				/* rotate */
+				console.log("Entro a click");
+				var ctxt = document.getElementById("lienzo").getContext("2d");
+				ctxt.beginPath();
+				ctxt.moveTo(10,10);
+				ctxt.lineTo(30,30);
+				ctxt.stroke();
+				ctxt.rotate(45);
+
+			});
+
+			// Aplica estilo al primer article
+			$("article:first-of-type").css("background-color","orange");
+			$("article:last-of-type").css("background-color","green");
+
+			/* Uso de trigger*/
+			for (var i = 10; i >= 10; i--) {
+				$("#zoom").trigger('click');
+				$("#btn2").trigger('click');
+			}
+
+		});
+
+		function mostrarPropiedades(){
+			$("#navegador").append("<p>AppCodeName " + navigator.appCodeName +"</p>");
+			$("#navegador").append("<p>AppName " + navigator.appName +"</p>");
+			$("#navegador").append("<p>language " + navigator.language +"</p>");
+			$("#navegador").append("<p>online: " + navigator.onLine +"</p>");
+			$("#navegador").append("<p>online2: " + navigator.isOnLine +"</p>");
+		}
+	</script>
+</head>
+<body>
+	<header>
+		<hgroup></hgroup>
+	</header>
+	<section>
+		<p id="test">Parrafo</p>
+		<p id="pru"></p>
+		<button id="btn1" style="display: none;">Boton</button>
+		<form>
+			<select id="unSelect" multiple="multiple">
+				<option >Opcion 1</option>
+				<option selected="selected">Opcion 2</option>
+				<option selected>Opcion 3</option>
+				<option >Opcion 4</option>
+			</select>
+		</form>
+
+		<svg currentScale="3.0" height="150" width="150" id="grafico">
+			<g id="imagen">
+			<circle cx="25" cy="20" r="20" stroke="green" stroke-width="2" fill="orange" id="circulo"/>
+				<rect id="cuadrado" x=45 y=45 width="50" height="50" style="stroke:black; fill: red; stroke-width:1px"/>
+			</g>
+		</svg>
+		<button id="zoom" onclick="animar(1000);">Animar</button>
+
+		<svg currentScale="1" width="300px" height="200px" viewBox="0 0 300 200"> 
+			<rect x="-10" y="-10" width="300" height="200" 
+			style="stroke: black; fill: none; stroke-width: 1px;"/>
+
+			<rect width="150" height="100" rx="10" ry="10"
+			style="fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0)" />
+			<circle cx="50" cy="100" r="25" style="fill: purple;"/>
+		</svg>
+		<button id="zoom" onclick="zoomIn();">Zoom in</button>
+		
+	</section>
+	<section>
+		<article>Articulo 1</article>
+		<article>Articulo 2</article>
+		<article>Articulo 3</article>
+		<article>Articulo 4</article>
+	</section>
+	<section>
+		<article>Art 1</article>
+		<article>Art 2</article>
+		<article>Art 3</article>
+	</section>
+	<section>
+		<hgroup>
+			<h3>Errores Examen 1</h3>
+		</hgroup>
+		<div id="navegador"></div>
+		<canvas id="lienzo" height="200px" width="200px">
+		</canvas>
+		<button id="btn2">Boton 2</button>
+		<div>
+			<div class="img">
+				<p>Prueba</p>
+			</div>
+			<div id="cantidad">				
+			</div>
+			<div id="localiza">				
+			</div>
+			<div id="nombre"></div>
+			<div id="apellido"></div>
+			<div id="nombre2"></div>
+			<div id="apellido2"></div>
+			<button id="btnEventoPers">Click para enviar</button>
+			<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
+				<span id="drag" draggable="true" ondragstart="drag(event)">drag me to the other box</span>
+			</div>
+			<div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>			
+		</div>
+	</section>
+	<section>
+		<div>
+		<h4>Uso de hyphens</h4>
+			<ul id="usoHyphens">
+				<li><code>none</code>: Ningún tratamiento
+					<p lang="en" class="none">An extreme&shy;ly long English word</p>
+				</li>  
+				<li><code>manual</code>: Tratamiento manual; (si nécessaire)
+					<p lang="en" class="manual">An extreme&shy;ly long English word</p>
+				</li>
+				<li><code>auto</code>: Tratamiento de espacio según algoritmo
+					<p lang="en" class="auto">An extreme&shy;ly long English word</p>
+				</li>
+			</ul>
+		</div>
+		<div>
+			<input type="text" id="nombre" placeholder="escriba algo" onfocus="enFocus(this)" onblur="enBlur(this)">
+			<label id="aviso"></label>
+		</div>
+		<div>
+			<input type="text" id="int1">
+			<input type="text" id="int2">
+			<select id="sexo">
+				<option>masculino</option>
+				<option>femenino</option>
+				<option>otro</option>
+				<option selected="true">Elija una opcion</option>
+			</select>
+			<input type="button" onclick="suma()" value="Sumar">
+			<input type="button" onclick="divide()" value="Dividir">
+			<input type="button" onclick="eleccion(document.getElementById('sexo'),'Elija sexo')" value="Sexo?">
+		</div>
+	</section>
+	<section>
+		<div id="mainGrid">
+			<div id="name">1</div>
+			<div id="surname">2</div>
+			<div id="rename">3</div>
+			<div id="namepast">4</div>
+			<div>5</div>
+			<div>6</div>
+			<div>7</div>
+			<div>8</div>
+		</div>
+		<div id="hijo">
+			<p>1</p>
+			<p>2</p>
+			<p>3</p>
+			<p>4</p>
+		</div>
+		<div id="hijo2">
+			<p>1</p>
+			<p>2</p>
+			<p>3</p>
+			<p>4</p>
+		</div>
+		<div class="container">
+			<div class="exclusion">
+				Exclusion positioned at row 2, column 2.
+			</div>
+			<div class="dummy_text">
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi maiores magnam repellat. Provident cum, aliquam in accusamus, neque, consequuntur cupiditate voluptatum enim quasi ipsa numquam magni tempore quas laboriosam? Repellendus?</p>
+				<button id="unBtn">Un Botón</button>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

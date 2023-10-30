@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style>
+		canvas {
+			border: 1px solid black;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			var supe = document.getElementById("superficie");
+			var ctxt = supe.getContext("2d"); // Provee los métodos necesarios
+
+			supe.onclick = reportar;
+
+			function reportar(e){
+				alert("Ha hecho click");
+			}
+
+			ctxt.beginPath(); //Resetea, empieza nuevo trazado
+			ctxt.moveTo(10, 10); // Mueve el contexto a las coordenadas x y
+			ctxt.lineTo(225, 350); // Indica destino en las coordenadas x y
+			ctxt.lineTo(100, 200); // Indica destino en las coordenadas x y
+
+			// Estilo de la línea
+			ctxt.lineWidth = 5;
+			ctxt.strokeStyle = 'orange';/*'#0f0';*/
+			ctxt.lineCap = "round"; //round,square y butt (forma de punta de la línea)
+
+			ctxt.stroke(); // Hace el trazado que permite hacerlo visible
+
+			//Cículo completo
+			ctxt.beginPath();
+			ctxt.arc(150,100,75,0,2 * Math.PI, false); // X,Y,radio, angulo inicio, angulo fin, direccion
+			ctxt.lineWidth = 25;
+			ctxt.strokeStyle = 'blue';
+			ctxt.stroke();
+
+			// 1/4 de círculo
+			ctxt.beginPath();
+			ctxt.arc(450, 100, 75, 1.5 * Math.PI, 2 * Math.PI, false);
+			ctxt.lineWidth = 25;
+			ctxt.strokeStyle = 'red';
+			ctxt.stroke();	
+
+			//Curva cuadrática
+			ctxt.beginPath();
+			ctxt.moveTo(10,380);
+			ctxt.quadraticCurveTo(300,-100,600,380); // Posición de cumbre X, Posición de cumbre Y,PosfinX,PosfinY
+			ctxt.lineWidth = 25;
+			ctxt.strokeStyle = '#f00';
+			ctxt.stroke();
+
+			var sup2 = document.getElementById("superficie2");
+			var ctxt2 = sup2.getContext("2d");
+
+			// Curva con dos nodos de estiramiento
+			//https://www.w3schools.com/tags/canvas_beziercurveto.asp
+			ctxt2.beginPath();
+			ctxt2.moveTo(20,20); // pto de inicio
+			ctxt2.bezierCurveTo(20, 100, 200, 100, 200, 20); // ptx nodo1, pty nodo1,
+									// ptx nodo1, pty nodo1, PosfinX, PosfinY
+			ctxt2.moveTo(250,20); // pto de inicio
+			ctxt2.bezierCurveTo(250, 100, 450, 100, 450, 20); // ptx nodo1, pty nodo1,													// ptx nodo1, pty nodo1, PosfinX, PosfinY
+			ctxt2.lineWidth = 5;
+			ctxt2.strokeStyle = 'green';
+			ctxt2.stroke();
+
+			// Rectángulo
+			ctxt2.beginPath();
+			ctxt2.rect(200, 200, 200, 75); // X,Y,width,height
+			ctxt2.fillStyle = "orange";
+			ctxt2.fill();
+			ctxt2.stroke();
+
+			// Degradados
+			
+			ctxt3 = sup2.getContext("2d");
+			ctxt3.lineWidth = 3;
+			ctxt2.rect(50, 270, 100, 125);
+			var gradient = ctxt3.createLinearGradient(150, 150, 200, 125);
+			gradient.addColorStop(0, "Black");
+			gradient.addColorStop(0.5, "Gray");
+			gradient.addColorStop(1,"White");
+			ctxt3.fillStyle = gradient;
+			ctxt3.fill();
+			ctxt3.stroke();
+
+			// Imagen en canvas
+			var sup3 = document.getElementById("superficie3");
+			var ctxt4 = sup3.getContext("2d");
+
+			var img = new Image();
+			img.src = "img/wittman.jpg";
+			img.onload = function () {
+				// ctxt4.drawImage(img, 200, 220); // Dibuja imagen , PosX, PosY
+				ctxt4.drawImage(img, 200,200,img.width * .5, img.height * .5);
+				ctxt4.stroke();
+			}
+
+			// Textos en canvas
+			ctxt4.strokeText("1. Text with default font", 200, 100);
+			ctxt4.font = "24px arial";
+			ctxt4.strokeText("1. Text with Arial font 24", 200, 120);
+			ctxt4.strokeStyle = "Red";
+			ctxt4.strokeText("1. Text with Arial font 24 red", 200, 140);
+			ctxt4.fillStyle = "Green";
+			ctxt4.fillText("1. Text with Arial font 24 green", 200, 160);
+
+			ctxt4.textAlign = "center";
+			ctxt4.fillStyle = "Orange";
+			ctxt4.fillText("ESTE ES EL CENTRO", sup3.width / 2,
+			sup3.height / 2);
+
+			// Experimentos
+			for(var i = 1; i<20;i++){
+				ctxt4.beginPath();
+				ctxt4.lineWidth = i*0.1;
+				ctxt4.strokeStyle = '#f00';
+				ctxt4.rect((i*10),(i*10),(i*2.5),(i*2.5));				
+				// ctxt4.fillStyle = "#a3571"+i.toString();
+				ctxt4.fillStyle = "rgb(" + (i*10).toString() + ", 87, 23)";
+				ctxt4.fill();
+				ctxt4.stroke();
+			}
+
+			for(var i = 1; i<20;i++){
+				ctxt4.beginPath();
+				ctxt4.lineWidth = i*0.1;
+				ctxt4.strokeStyle = '#f00';
+				ctxt4.rect((600/i),(i*10),(i*2.5),(i*2.5));				
+				// ctxt4.fillStyle = "#a3571"+i.toString();
+				ctxt4.fillStyle = "rgb( 100, " + (i*10).toString() +", 23)";
+				ctxt4.fill();
+				ctxt4.stroke();
+			}			
+		}
+
+		//Eventos de SVG
+		function Red(evt) {
+			var circle = evt.target;
+			circle.setAttribute("style", "fill: red");
+		}
+		function Green(evt) {
+			var circle = evt.target;
+			circle.setAttribute("style", "fill: green");
+		}		
+	</script>
+</head>
+<body>
+	<canvas id="superficie" width="600" height="400"></canvas><br>
+	<canvas id="superficie2" width="600" height="400"></canvas><br>
+	<canvas id="superficie3" width="600" height="400"></canvas><br>
+	<svg>
+		<circle id="Circle" cx="50" cy="50" r="50" fill="green" onmouseover="Red(evt)"
+		onmouseout="Green(evt)"/>
+	</svg>	
+
+	<svg>
+		<rect id="lightStandard" x="100" y="0" width="60" height="200" fill="black"/>
+		<circle id="redLight" cx="129" cy="45" r="25" fill="red"/>
+		<circle id="amberLight" cx="129" cy="105" r="25" fill="yellow"/>
+		<circle id="greenLight" cx="129" cy="165" r="25" fill="green"/>
+	</svg>
+
+	<svg>
+		<polygon points="10,15 30,35 10,85 100,85, 70,35,100,15" fill="purple"/>
+		<polyline points="10,150 30,170 50,132 62,196 78,165 96,170"
+			style="stroke:orange; fill:none; stroke-width:5;"/>
+		<line x1="150" y1="100" x2="150" y2="150" style="stroke:blue;stroke-width:3"/>
+		<ellipse cx="250" cy="150" rx="30" ry="55" fill="green"/>
+		<text x="10" y="10" style="stroke: black;stroke-width:1;">
+			Examples of SVG Shapes and Text</text>
+	</svg>
+
+	<svg width="500" height="300" xmlns="http://www.w3.org/2000/svg">
+		<path d="m267 76 l-21 -4 -144 0 -90 47 0 54 11 11 23 0 15 -30 15 -10 30 0 15 10
+		15 30 220 0 15 -30 15 -10 30 0 15 10 15 30 l25 0 7 -7 -13 -38
+		-20 -10 -95 -15 z" fill="blue" id="carBody"/>
+		<path d="m65 105 l40 -25 65 0 0 34 -112 0 z" fill="white" id="rearWindow" />
+		<path d="m300 105 l-40 -25 -78 0 0 34 122 0 z" fill="white" id="frontWindow" />
+		<circle r="35" cy="185" cx="90" fill="black" id="rearWheel" />
+		<circle r="35" cy="185" cx="400" fill="black" id="frontWheel" />
+	</svg>
+</body>
+</html>

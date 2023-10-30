@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style>
+		#outer {
+			width: 200px;
+			height: 200px;
+			background-color: red;
+		}
+		#middle {
+			width: 50%;
+			height: 50%;
+			position: relative;
+			top: 25%;
+			left: 25%;
+			background-color: green;
+		}
+		#inner {
+			width: 50%;
+			height: 50%;
+			position: relative;
+			top: 25%;
+			left: 25%;
+			background-color: blue;
+		}		
+	</style>
+	<script type="text/javascript">
+
+		// Si se adicionan varias funciones a onload, no funcionan los eventos de sus elementos
+		// por eso se coemntan estas líneas
+		/*function alAbrir(){
+			console.log("Desde HTML: onload='alAbrir();'");
+		}
+
+		function alAbrir2(){
+			console.log("Desde javascript: window.onload = alAbrir2();");			
+		}
+
+		// addEventListener y removeEventListener
+		 //nombre de evento (sin la palabra on),función, reglas opcionales
+		window.addEventListener("load",cargando1,false);
+		window.addEventListener("load",cargando2,false);		
+		window.removeEventListener("load",cargando2,false); //Remueve el evento
+
+		function cargando1(){
+			console.log("window.addEventListener('load',cargando1,false);");
+		}
+
+		function cargando2(){
+			console.log("window.addEventListener('load',cargando2,false);");
+		}*/	
+
+
+		//el objeto window almacena todos los eventos.
+		//En este caso es el evento onload
+		//acá se llama a una función en particular, pero en general se llama a una función anónima
+		/*window.onload = alAbrir2();*/
+		window.onload = function(){
+			console.log("Onload función anónima");
+			//nombre de evento (sin la palabra on),función, define si hay efecto burbuja o no (orden en que se ejecutan las funciones)
+			document.getElementById("outer").addEventListener("click", outerDivClick, true);
+			document.getElementById("middle").addEventListener("click", middleDivClick, true);
+			document.getElementById("inner").addEventListener("click", innerDivClick, false);
+			document.getElementById("clearButton").addEventListener("click", clearList);			
+		
+			/**********************************/
+			/*******EVENTOS DEL DOM***/
+			/**********************************/
+			//change		
+			document.getElementById("aRange").addEventListener("change", rangeChange);
+			// focus
+			document.getElementById("firstNameText").focus(); // al entrar al elemento
+			// blur
+			// al salir del elemento
+			document.getElementById("firstNameText").addEventListener("blur", 
+				function () {
+					var texto="";
+					var color;
+					if (this.value.length < 5) {
+						texto = 'First Name is required to be 5 letters.';
+						color = 'red';
+						this.focus();
+					} else {
+						texto = 'Todo está OK';
+						color = 'green';
+					}
+					document.getElementById("ruleViolation").innerText = texto;
+					document.getElementById("ruleViolation").style.color = color;
+			});
+			// keydown (al oprimir tecla)
+			// keyup (al soltar), keypress (cuando está completamente presionada
+			document.getElementById("firstNameText").addEventListener("keydown", 
+				function () {
+					// keyCode: codigo de tecla oprimida
+					document.getElementById("outputText").innerText = window.event.keyCode;
+					// altKey: codigo de tecla oprimida
+					if(window.event.altKey)
+						document.getElementById("outputText").innerText = "Alt oprimido"
+					// ctrlKey: codigo de tecla oprimida
+					if(window.event.ctrlKey)
+						document.getElementById("outputText").innerText = "ctrl oprimido"
+					// shiftKey: codigo de tecla oprimida
+					if(window.event.shiftKey)
+						document.getElementById("outputText").innerText = "shift oprimido"
+			});
+
+			// Evento asignaod a oprimir ctrl+m
+			document.onkeydown = function(){
+				console.log("Oprimió: " + window.event.keyCode + 
+					" = " + String.fromCharCode(window.event.keyCode));
+				if (window.event.ctrlKey && String.fromCharCode(window.event.keyCode) == 'M')					
+					document.getElementById("secondNameText").focus();
+			}
+
+		} //Función anónima
+
+		function rangeChange(){
+			// this se refiere al elemento que creo el evento
+			document.getElementById("rangeValue").innerHTML = this.value;
+		}
+
+		function outerDivClick() {
+			appendText("outer Div Clicked");
+		}
+		function middleDivClick() {
+			appendText("middle Div Clicked");
+		}
+		function innerDivClick() {
+			appendText("inner Div Clicked");
+			window.event.cancelBubble = true; //cancela el efecto burbuja
+		}
+
+		function appendText(s) {
+			console.log("Entró a agregar");
+			var li = document.createElement("li");
+			li.innerText = s;
+			document.getElementById("eventOrder").appendChild(li);
+		}
+
+		function clearList() {
+			console.log("Limpiando");
+			var ol = document.createElement("ol");
+			ol.id = "eventOrder";
+			document.getElementById("prinsec").replaceChild(ol,document.getElementById("eventOrder"));
+		}
+
+
+
+	</script>
+</head>
+<!-- <body onload="alAbrir();"> -->
+<body>
+	<header>
+		<h1>Manejo de eventos</h1>
+	</header>
+	<article>
+		<hgroup>
+			<h1 id="titulo"></h1>
+		</hgroup>
+		<section id="prinsec">
+			<div id="outer">
+				<div id="middle" >
+					<div id="inner">
+					</div>
+				</div>
+			</div>
+			<ol id="eventOrder"> </ol>
+			<button type="button" id="clearButton">Clear</button>
+			<div>
+				<input type="range" id="aRange" max="200" min="0" value="0">
+				<span id="rangeValue">0</span>							
+			</div>
+			<div>
+				<input type="text" id="firstNameText">
+				<span id="ruleViolation"></span>
+				<p id="outputText"></p>
+				<input type="text" id="secondNameText">
+			</div>
+		</section>
+	</article>
+
+</body>
+</html>

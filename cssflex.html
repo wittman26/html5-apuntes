@@ -1,0 +1,290 @@
+ <!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Flexible layouts</title>
+	<link rel="stylesheet" href="css/estilo.css"> <!-- En HTML5 ya no es necesario esto: type="text/css" -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<style>
+		body,html{
+			font-family: 'cocon';
+		}
+		h4{
+			color: orange;
+		}
+
+		#cajaflex {
+			display: flex;
+			border: 1px solid black;
+			margin-top: 10px;
+			min-height: 15px;
+		}
+		#cajaflex > div {
+			min-width: 80px;
+			min-height: 80px;
+			border: 1px solid black;
+			margin: 5px;
+		}
+		#cajaflex > div:nth-child(1) {
+			background-color: green;
+			color: white;
+			flex: 1;
+			order:3;
+		}
+		#cajaflex > div:nth-child(2) {
+			background-color: yellow;
+			color: white;
+			flex: 8;
+			order:1;
+		}
+		#cajaflex > div:nth-child(3) {
+			background-color: red;
+			color: white;
+			flex: 1;
+			order:2;
+		}
+		#cajaflex > div:nth-child(4) {
+			background-color: purple;
+		}
+		#cajaflex > div:nth-child(5) {
+			background-color: blue;
+		}
+
+		/* Flexbox = flex*/
+		/*
+			display: box; is a version of 2009.
+			display: flexbox; is a version of 2011.
+			display: flex; is the actual version.
+		*/
+
+		#contenedor h4{
+			margin: 0px;
+			border: 1px solid;
+			border-style: groove;
+			width: 20%;
+		}
+		#cajaflexbox{
+			border: 2px solid black;
+			margin-top: 10px;
+		}
+
+		#top{
+			background-color: purple;
+			width: 98%;
+			height: 50px;
+		}
+		#contenido{
+			background-color: green;
+			width: 98%;
+			display: flex;
+			flex-direction: row;
+		}
+		#contenido #left{
+			background-color: lightblue;
+			width: 220px;
+			height: 50px;
+		}
+
+		#contenido #main{
+			background-color: yellow;
+			flex:2;
+		}
+
+		#contenido #right{
+			background-color: red;
+			width: 220px;
+			height: 50px;
+		}
+		#bottom{
+			background-color: white;
+			width: 98%;
+		}
+
+		/*	MAS FLEX*/
+
+		.contenidoFlex{
+			display: flex;
+			flex-direction: row;
+		}
+		/*#cajaflex > div:nth-child(1)*/
+		.contenidoFlex >div:nth-child(odd){
+			background-color: red;
+			flex:2;
+			flex-grow: 2;
+		}
+
+		.contenidoFlex >div:nth-child(even){
+			background-color: blue;
+			flex:1;
+		}
+
+		.caso1{
+			display: flex;
+			flex-direction: row;
+			justify-content: space-around;
+		}
+
+		.caso1 >div:nth-child(odd){
+			width: 150px;
+			background-color: green;
+			align-self: flex-start;
+			order:1;
+
+		}
+		.caso1 >div:nth-child(even){
+			width: 50px;
+			background-color: purple;
+			order:2;
+		}
+
+		.caso2 {
+			justify-content: space-between;
+		}
+
+		/*Centrar e invertir el orden*/
+		.caso3 {
+			justify-content: center;
+		}
+
+		.caso3 >div:nth-child(odd){
+			order:2;
+		}
+
+		.caso3 >div:nth-child(even){
+			order:1;
+		}
+
+
+		/*Diseño por columnas*/
+		#c_lo {
+			width:80%;
+			height: 400px;
+			border: 1px solid black;
+			column-count: 5;	/*Número de columnas*/
+			column-rule-color: green; /*Color de linea vertical*/
+			column-rule-style: dashed;	/*Tipo de linea vertical entre columnas*/
+			column-rule-width: 2px;	/*Grosor de linea vertical*/
+			column-gap: 5px;	/*Espacio entre columnas*/
+		}
+
+		#c_lo ul {
+			text-align: left;
+		}
+
+		#c_lo ul li{
+			font-size: 0.8em;
+		}
+
+		hgroup {
+			column-span: all;	/*Hace que ocupe todas las columnas (tambiés se puede usar número de columnas)*/
+			text-align:center;
+		}
+
+		#wrap {
+			width: 80%;
+			padding-left: 50px;
+		}
+		img {
+			position: absolute;
+			height: 100px;
+			width: 150px;
+			-ms-wrap-flow: both;
+			-ms-wrap-margin: 15px;
+		}
+
+	</style>
+</head>
+<body>
+	<header>
+		<hgroup>
+			<h1>Flexible Layouts</h1>
+		</hgroup>
+	</header>
+	<section>
+		<div>
+			<h4>Todos con propiedad display:flex</h4>
+			<div id="cajaflex">		
+				<div>Este es el Verde  flex: 1; order:3;</div>
+				<div>Y este el amarillo flex: 8; order:1;</div>
+				<div>Y acá el rojo flex: 1; order:2;</div>
+				<div>Morado</div>
+				<div>Azul</div>
+			</div>
+		</div>
+
+		<div>
+			<h4>Propiedad display:flexbox (es la misma flex)</h4>
+			<div id="cajaflexbox">		
+				<div id="top">Top</div>
+				
+				<div id="contenido">
+					<div id="left">Left> width:200px</div>
+					<div id="main">Main> flex:1</div>
+					<div id="right">Right> width:200px</div>				
+				</div>
+				<div id="bottom">Bottom</div>
+			</div>
+		</div>
+
+		<div>
+			<h4>Propiedad display:flex</h4>
+			<div id="contenedor">						
+				<div class="contenidoFlex">
+					<div id="col1">Col1</div>
+					<div id="col2">Col2</div>
+					<div id="col3">Col3</div>
+					<div id="col4">Col4</div>
+					<div id="col5">Col5</div>
+				</div>
+				<h4>justify-content: space-around</h4>
+				<div class="caso1">
+					<div id="col1">Col1</div>
+					<div id="col2">Col2</div>
+					<div id="col3">Col3</div>
+					<div id="col4">Col4</div>
+					<div id="col5">Col5</div>
+				</div>
+				<h4>justify-content: space-between</h4>
+				<div class="caso1 caso2">				
+					<div id="col1">Col1</div>
+					<div id="col2">Col2</div>
+					<div id="col3">Col3</div>
+					<div id="col4">Col4</div>
+					<div id="col5">Col5</div>
+				</div>
+				<h4>justify-content: center</h4>
+				<div class="caso1 caso3">				
+					<div id="col1">Col1</div>
+					<div id="col2">Col2</div>
+					<div id="col3">Col3</div>
+					<div id="col4">Col4</div>
+					<div id="col5">Col5</div>
+				</div>
+			</div>
+		</div>
+
+		<h4>column_count</h4>
+		<div id="c_lo">
+			<hgroup>
+				<h1>My Blog Article</h1>
+				<ul>
+					<li>column-count: 5;	/*Número de columnas*/</li>
+					<li>column-rule-color: green; /*Color de linea vertical*/</li>
+					<li>column-rule-style: dashed;	/*Tipo de linea vertical entre columnas*/</li>
+					<li>column-rule-width: 2px;	/*Grosor de linea vertical*/</li>
+					<li>column-gap: 5px;	/*Espacio entre columnas*/					</li>
+				</ul>
+			</hgroup>
+			<p> Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto Mucho texto </p>
+		</div>
+		<div>
+			<p id="wrap">
+				Lorem ipsum dolor sit
+				debitis.<img src="img/wittman.jpg"/> Modus elaboraret temporibus no sit. At invidunt
+				splendide qui, ut pro choro iisque democritum. Partem timeam graecis ea vis, utamur
+				feugiat Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque a soluta cupiditate. Veritatis, ut necessitatibus vero iste modi natus deleniti voluptatem distinctio unde quasi officia, facilis vitae, dicta mollitia neque! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse quis odit repudiandae ex odio ullam, voluptatibus maxime quam! Veritatis aliquid necessitatibus repudiandae, debitis sint repellendus voluptas. Nesciunt, similique fuga exercitationem? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis excepturi beatae tenetur ipsum iste doloribus, distinctio temporibus rem dignissimos incidunt velit, veniam eum, tempora, magni cupiditate mollitia nisi dolores voluptate.
+			</p>
+		</div>
+	</section>
+</body>
+</html>

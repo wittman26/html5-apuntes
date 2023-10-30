@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Ciclo de vida de variables</title>
+	<style>
+		div {
+			width: 100px;
+			height: 100px;
+			border: 1px solid black;
+		}
+	</style>	
+	<script type="text/javascript">
+		var globalVar = "global"; // El nombre de la variable distingue entre min y may.
+		//Here, "this" references the global namespace
+		this.navigator.geolocation		
+
+		window.onload = function () {
+			var localVar = "local";
+			document.getElementById("Div1").onclick = function () {				
+				var insideDiv1Click = "insideDiv1";
+				console.log(globalVar);
+				console.log(localVar);
+				console.log(insideDiv1Click);
+			};
+
+			document.getElementById("Div2").onclick = function () {
+				console.log(globalVar);
+				console.log(localVar);
+				console.log(insideDiv1Click); //Mostrará error pues la variable solo existe en la función de Div1				
+			};
+
+			document.getElementById("Div3").onclick = function () {
+				var insideDiv3 = "Div3";
+				//AFunction();	//Muestra error pues en AFunction intenta leer una variable de esta función
+				BFunctionWithParam(insideDiv3);				
+			};
+
+			var scaleX = 0.0;
+			console.log(scaleX);
+			document.getElementById("Div4").onclick = function () {
+				var scaleX = -3;
+				console.log(scaleX);			
+			};			
+
+			function AFunction() {
+				var x;
+				console.log(insideDiv3);
+			}
+
+			function BFunctionWithParam(p) {
+				console.log(p);
+				console.log(localVar);
+			}
+
+			
+			//Here, "this" references the window object
+			this;
+			document.getElementById("Div5").onclick = function()
+			{
+				//Here, "this" references the DIV element
+				this.innerHTML = "Cambió gracias a this";
+			}
+
+		}			
+	</script>
+</head>
+<body>
+	<div id="Div1"></div>
+	<div id="Div2"></div>
+	<div id="Div3"></div>
+	<div id="Div4"></div>
+	<div id="Div5"></div>
+</body>
+</html>

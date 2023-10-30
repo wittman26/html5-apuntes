@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Detectar idioma de navegador</title>
+	<script type="text/javascript">
+		window.onload = function(){
+
+			var idioma = window.navigator.userLanguage || window.navigator.language;
+			idioma = idioma.substring(0,2);
+
+			console.log("Verifica el idioma!");
+			console.log("window.navigator.userLanguage || window.navigator.language = " + idioma);
+
+
+			switch(idioma){
+				case "en":
+					console.log("The language of browser is english: " + idioma);
+					document.getElementById("spidioma").innerHTML = "The language of browser is english: "
+					break;
+				case "fr":
+					console.log("Le langage du browser est Français: " + idioma);
+					document.getElementById("spidioma").innerHTML = "Le langage du browser est Français: "
+					break;
+				case "es":
+					console.log("El idioma del navegador es Español: " + idioma);
+					document.getElementById("spidioma").innerHTML = "El idioma del navegador es Español: "
+					break;
+				default:
+					console.log("Idioma no soportado: " + idioma);
+					document.getElementById("spidioma").innerHTML = "Idioma no soportado: "
+			}
+
+		}		
+	</script>
+</head>
+<body>
+	<span id="spidioma"></span>
+</body>
+</html>

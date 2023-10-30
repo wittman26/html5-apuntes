@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>HTML5 Fundamentals</title>
+		<link rel="stylesheet" href="../css/estilo.css"> <!-- En HTML5 ya no es necesario esto: type="text/css" -->
+		<link rel="stylesheet" href="../css/normalize.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script href="js/modernizr-custom.js"></script>
+		<style>
+			input[required] {
+				border: 1px red solid;
+			}
+			input[type=password]{
+				border: 1px blue solid;
+			}
+
+			#pru li a {
+				text-decoration: none;
+			}
+			#pru2 li>a {
+				text-decoration: none;
+			}
+
+			#pru li:nth-child(3) {	/* El tercer hijo tendrá este estilo*/
+				background-color: orange;
+			}
+			.keepWhiteSpace {
+				white-space: pre;
+			}
+
+			thead th {
+				background-color: #BDEAFF;
+				width: 100px;
+			}
+			tbody th {
+				background-color: #FFFF99;
+			}
+			tfoot th {
+				background-color: #C2FE9A;
+			}
+			tfoot th:last-of-type {
+				text-align: right;
+			}
+			td {
+				text-align: center;
+			}
+			td:last-of-type {
+				text-align: right;
+			}			
+		</style>
+		<script>
+			window.onload = function(){
+
+				// \ \t y \n
+				console.log('The doctor said "I\'m pleased to announce that it\'s a girl!" ');
+				console.log('The doctor said "I\'m pleased to announce \t that it\'s a girl!" ');
+				console.log('The doctor said "I\'m pleased to announce \n that it\'s a girl!" ');
+				console.log('Tipo de var: ' + typeof('Alguna vaina'));
+				console.log('Tipo de var: ' + typeof(1.23));
+
+				//Función declarada
+				var a = 5;
+				var b = 10;
+				var c = Add(a, b);
+				function Add(x, y) {
+					return x + y;
+				}
+
+				//Expresion función
+				var fun = function(x,y){
+					return x + y;
+				}
+				var c = fun(2,4);
+
+				function ocultar(submenu) {
+					if(submenu.css("display")=="block"){ //propiedad style, con valor interno display
+						submenu.css("display","none")
+					} else {
+						submenu.css("display","inline")
+					}
+				}
+
+				// var num = prompt('Escriba edad','edad');
+				// console.log( 87 + Number(num) );
+
+				$("document").ready(function(){
+					//Por cada li, haga:
+					$("#menuprin>ul>li").each(function(){
+						//Este objeto en su evento mouseenter
+						$(this).mouseenter(function(){
+							ocultar($(this).children('nav'));
+						});
+					});
+				});				
+
+			}
+
+
+
+		</script>
+	</head>
+	<body>
+		<header>
+			<nav id="menuprin" class="cocon sombra">
+				<ul>
+					<li><a href="#articulo1">Inicio</a></li>
+					<li><a href="#articulo2">TRAINING</a></li>
+					<li><a id="ejemplos" href="#">Ejercicios</a>
+						<nav id="ejem-interno" class="menu-interno">
+							<ul>
+								<li><a href="calculator.html" target="_blank">Chapter 3</a></li>
+								<li><a href="jqueryAfondo.html" target="_blank">Chapter 6</a></li>
+								<li><a href="contactus.html" target="_blank">Chapter 7</a></li>
+							</ul>
+						</nav>						
+					</li>
+			</nav>
+
+			<div class="sombra">
+				<h1>
+					<sup class="etiqueta">(h1)</sup>
+					Etiquetas mas usadas en HTML
+				</h1>
+			</div>			
+		</header>
+
+		<section class="sombra">
+			<form>
+				<fieldset>
+					<input type="checkbox" name="fruta" value="naranja" checked>
+					<input type="checkbox" name="fruta" value="manzana" checked="checked">
+				</fieldset>
+			</form>
+
+			<img src ="../img/wittman.jpg" width="145" height="126"
+			alt="World Map" usemap ="#countries" />
+			<!-- - rect x1, y1, x2, and y2 specify the coordinates of the left, top, right, and bottom.
+			 	 - circle x, y, and radius specify the coordinates of the center and the radius.
+			 	 - poly x1, y1, x2, y2,.., xn, and yn specify the coordinates of the edges. The first and last
+			coordinate pairs should be the same to close the polygon, but if they aren’t the same,
+			the browser will add a closing pair. -->
+			<map name="countries">
+				<area shape="rect" coords="10,15,30,25" href="USA.html" alt="USA" />
+				<area shape="circle" coords="95,40,20" href="China.html" alt="China" />
+				<area shape="poly" coords="97,76,115,76,113,83,105,90,97,76" href="Australia.html" alt="Australia" />
+				<area shape="default" href="InvalidChoice.html" alt="Invalid" />
+			</map>			
+			
+		</section>
+		<section>
+			<ul id="pru">
+				<li>
+					<a href="">Enlace 1</a>
+					<ul>
+						<li>
+							<a href="">pru 1</a>
+							<ul>
+								<li><a href="">Grandc 1</a></li>
+								<li><a href="">Grandc 2</a></li>
+							</ul>
+						</li>
+						<li><a href="">pru 2</a></li>
+					</ul>
+				</li>
+				<li><a href="">Enlace 2</a></li>
+				<li><a href="">Enlace 3</a></li>
+			</ul>
+			<ul id="pru2">
+				<li>
+					<a href="">Enlace 1</a>
+					<ul>
+						<li>
+							<a href="">pru 1</a>
+							<ul>
+								<li><a href="">Grandc 1</a></li>
+								<li><a href="">Grandc 2</a></li>
+							</ul>
+						</li>
+						<li><a href="">pru 2</a></li>
+					</ul>
+				</li>
+				<li><a href="">Enlace 2</a></li>
+				<li><a href="">Enlace 3</a></li>
+			</ul>
+			<div>
+				<b>b: en negrilla</b>
+				<strong>strong: en negrilla</strong>
+				<i>i: en Italic</i>
+				<em>em: Enfatiza</em>
+				<abbr title="Radio detection and ranging">RADAR</abbr>
+				<address>address: Contoso, Inc.</address>
+				<blockquote> blockquote:
+					O Romeo, Romeo, wherefore art thou Romeo?<br />
+					Deny thy father and refuse thy name;<br />
+					Key
+					Terms
+					216 CHAPTER 5 More HTML5
+					Or if thou wilt not, be but sworn my love<br />
+					And I'll no longer be a Capulet.<br />
+					<footer>
+					<p>
+					by William Shakespeare,
+					<cite>cite: Romeo and Juliet</cite> Act 2, scene 2
+					</p>
+					</footer>
+				</blockquote>
+				<code class="keepWhiteSpace">
+					sayHello('Mom');
+					function sayHello(name)
+					{
+					alert('Hello ' + name + '!');
+					}
+				</code>
+				<samp class="keepWhiteSpace">
+					Hello Mom!
+				</samp>
+				<code>
+					<pre>
+					function(){
+						var boo = 'algo';
+						console.log('variable boo: ' + boo);
+						//Se ha usado "< pre >"
+					}
+					</pre>
+				</code>
+				<p>
+				The resistance <var>var: r</var> of a piece of wire is equal to the voltage <var>var: v</var>
+				divided by the current <var>var: i</var>.
+				</p>
+				<figure id="figure1">
+					<img src="../img/wittman.jpg" alt="peanut butter and jelly requirements" />
+					<figcaption>Figure 1 The PB&J sandwich requirements.</figcaption>
+				</figure>
+
+				<h3>Common Vehicles</h3>
+				<dl>dl: Description list
+					<dt>dt: Boat</dt>
+					<dd>dd: A small vehicle propelled on water by oars, sails, or an engine</dd>
+					<dt>Car</dt>
+					<dd>An automobile</dd>
+					<dd>A passenger vehicle designed for operation on ordinary roads
+					and typically having four wheels and an engine</dd>
+					<dt>Bicycle</dt>
+					<dt>Bike</dt>
+					<dd>A vehicle with two wheels in tandem, typically propelled by pedals
+					connected to the rear wheel by a chain, and having handlebars
+					for steering and a saddlelike seat</dd>
+				</dl>
+
+				<table>
+					<thead>
+						<tr>
+							<th>Vehicle #</th>
+							<th>Year</th>
+							<th>Make</th>
+							<th>Model</th>
+							<th>Price</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th>1</th>
+							<td>1957</td>
+							<td>Ford</td>
+							<td>Thunderbird</td>
+							<td>14,000</td>
+						</tr>
+						<tr>
+							<th>2</th>
+							<td>1958</td>
+							<td>Chevrolet</td>
+							<td>Impala</td>
+							<td>3,000</td>
+						</tr>
+						<tr>
+							<th>3</th>
+							<td>2012</td>
+							<td>BMW</td>
+							<td>Z4</td>
+							<td>40,000</td>
+						</tr>
+						<tr>
+							<th>4</th>
+							<td>2003</td>
+							<td>Mazda</td>
+							<td>Miata</td>
+							<td>5,000</td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<th colspan="4">Total:</th>							
+							<th>62,000</th>
+						</tr>
+					</tfoot>
+				</table>				
+
+			</div>
+		</section>		
+
+
+
+</body>
+</html>

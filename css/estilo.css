@@ -1,0 +1,97 @@
+@charset "UTF-8";
+/*Se organizan los elementos en orden alfab├®tico*/
+/*@font-face define una fuente general para el sitio*/
+@font-face {
+  font-family: "cocon";
+  font-style: normal;
+  font-weight: normal;
+  src: url("../fonts/cocon.ttf"); }
+article {
+  padding: 5px;
+  height: 100%; }
+  article section {
+    padding: 10px;
+    background-color: #e3e5e8; }
+    article section form {
+      background-color: #d6d8db;
+      padding: 5px; }
+      article section form fieldset {
+        background-color: #f0f0f0; }
+        article section form fieldset legend {
+          font-weight: bold; }
+        article section form fieldset p {
+          display: block;
+          margin: 5px; }
+    article section div img {
+      border-radius: 50%; }
+
+body {
+  height: 100%;
+  margin: 0;
+  /* Distancia externa*/
+  padding: 0;
+  /* Distancia interna */
+  max-width: 100%; }
+
+.cocon {
+  font-family: cocon; }
+
+div {
+  padding: 10px;
+  background-color: #f0f0f0; }
+
+.etiqueta {
+  color: green;
+  font-size: 0.8em;
+  /* 8% del tama├▒o de la eme de la fuente*/
+  font-weight: bold; }
+
+.etiqueta-abs {
+  color: orange;
+  font-size: 0.8em;
+  font-weight: bold;
+  font-style: italic; }
+
+header nav {
+  background-color: #f0f0f0; }
+  header nav ul {
+    font-weight: bold;
+    font-size: 1.3em; }
+    header nav ul li {
+      display: inline-block;
+      /*  inline-block->Muestra lista de forma horizontal*/
+      padding: 0px 10px;
+      /* 0px arriba y abajo, 10 px izq y der*/ }
+      header nav ul li a {
+        text-decoration: none;
+        /*Animaci├│n de transici├│n
+        (all indica que todas las transiciones tendr├ín este efecto)
+        0.3 el tiempo en segundos, linear el efecto*/
+        transition: all 0.3s linear; }
+        header nav ul li a:hover {
+          color: orange; }
+          header nav ul li a:hover .menu-interno {
+            display: inline; }
+        header nav ul li a:before {
+          left: 0; }
+        header nav ul li a:after {
+          right: 0; }
+
+.menu-interno {
+  display: none;
+  position: absolute; }
+  .menu-interno ul {
+    padding: 0px 5px;
+    margin: 0px 5px; }
+    .menu-interno ul li {
+      padding: 2px 0px;
+      display: block;
+      font-size: 0.7em; }
+
+.sombra {
+  border-style: outset;
+  box-shadow: 5px 3px 18px #888888;
+  /* sombra Horizontal, sombra Vertical, desenfoque, color*/
+  margin: 10px; }
+
+/*# sourceMappingURL=estilo.css.map */

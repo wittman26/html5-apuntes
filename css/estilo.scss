@@ -1,0 +1,121 @@
+/*Se organizan los elementos en orden alfabético*/
+
+@each $font-face in 'cocon'{
+	/*@font-face define una fuente general para el sitio*/
+	@font-face{			
+		font-family: $font-face;
+		font-style: normal;
+		font-weight: normal;
+		src:url('../fonts/#{$font-face}.ttf');
+	}
+}
+
+
+article {
+	padding: 5px;
+	height: 100%;
+	section {
+		padding: 10px;
+		background-color:rgb(227, 229, 232);
+		form{
+			background-color:rgb(214, 216, 219);
+			padding: 5px;			
+			fieldset {
+				background-color:rgb(240, 240, 240);
+				legend{
+					font-weight: bold;					
+				}
+				p{
+					display: block;
+					margin: 5px;
+				}				
+			}
+		}
+		div img{
+			border-radius: 50%;
+		}
+	}
+}
+
+body{
+	height: 100%;
+	margin: 0;  /* Distancia externa*/
+	padding: 0;	/* Distancia interna */
+	max-width: 100%;
+}
+
+.cocon {
+	font-family: cocon;
+}
+
+div{
+	padding: 10px;
+	background-color:rgb(240, 240, 240);	
+}
+
+.etiqueta{
+	color: green;
+	font-size: 0.8em; /* 8% del tamaño de la eme de la fuente*/
+	font-weight: bold;
+}
+
+.etiqueta-abs{
+	color: orange;
+	font-size: 0.8em;
+	font-weight: bold;
+	font-style: italic;
+}
+
+header{
+	nav {
+		background-color:rgb(240, 240, 240);
+		ul {
+			font-weight: bold;
+			font-size: 1.3em;
+			li{
+				display: inline-block;	/*  inline-block->Muestra lista de forma horizontal*/
+				padding: 0px 10px; 		/* 0px arriba y abajo, 10 px izq y der*/
+				a {
+					text-decoration: none;
+					/*Animación de transición
+					(all indica que todas las transiciones tendrán este efecto)
+					0.3 el tiempo en segundos, linear el efecto*/
+					transition:all 0.3s linear;
+					&:hover{
+						color: orange;
+						.menu-interno {display: inline;}
+					}
+					&:before {
+						left: 0;
+						
+					}
+					&:after {
+						
+						right: 0;
+					}					
+				}
+				
+			}
+		}
+	}	
+}
+
+.menu-interno{
+	display: none;
+	position: absolute;
+	ul {
+		padding: 0px 5px;
+		margin: 0px 5px;
+		li{		
+			padding: 2px 0px;
+			display: block;
+			font-size: 0.7em;
+		}
+	}
+}
+
+.sombra {
+	border-style: outset;
+	box-shadow: 5px 3px 18px #888888; /* sombra Horizontal, sombra Vertical, desenfoque, color*/
+	margin: 10px;	
+}

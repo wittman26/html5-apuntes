@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Expresiones Regulares</title>
+	<link rel="stylesheet" href="css/estilo.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		// window.onload = function(){
+			function CheckString() {				
+				try{
+					// console.log("valor en check: " + $('#usuario').val());
+					var s = $('#telefono').val();
+					var regExpression = /^\+?\d{1,3}?[- .]?\(?(?:\d{2,3})\)?[- .]?\d\d\d[- .]?\d\d\d\d$/;
+					if (regExpression.test(s))
+						mostrar('#chktel',"Teléfono Válido :)");					
+					else
+						mostrar('#chktel',"Teléfono Inválido");
+				} catch (e) {
+					alert(e.message);
+				}
+			}
+
+			function CheckStringExec() {
+				var s = $('#usuario').val();
+
+				eval("console.log('Escrito con Eval');");
+				var regExpression = /^[a-z\d_]{4,15}$/;
+				var results = regExpression.exec(s);
+				if(results != null)
+					mostrar('#chkusu',"Usuario Valido." + results[0]);
+				else
+					mostrar('#chkusu',"Usuario Inválido");
+			}
+
+			//*********************************************
+			//* FUNCIONES DE IMPRESION *
+			//********************************************//
+
+			function mostrar(id,valor) {
+				// var res = document.createElement("adver");
+				// console.log(valor);
+				// res.innerHTML = valor;
+				// console.log("valor: " + valor);
+				$(id).html(valor);
+			}
+
+					
+		
+		// }
+	</script>
+</head>
+<body>
+	<header>
+		<hgroup>
+			<h1>Expresiones Regulares</h1>
+		</hgroup>
+	</header>
+	<article>
+		<section class="sombra">
+			<h1>Ejemplos</h1>
+			<form>
+				<p>
+					<label>Código Postal: </label>
+					<input type="text" name="postal" pattern="^[A-Z,a-z]\d[A-Z,a-z][\s{1}]?\d[A-Z,a-z]\d" title="El formato debe ser: A2A 3F3">
+				</p>
+
+				<p>
+					<label>Nombre usuario: </label>
+					<input type="text" id="usuario" onkeydown="CheckStringExec()" title="El formato debe ser: A2A 3F3">
+					<span id="chkusu"></span>
+				</p>
+
+				<p>
+					<label>Teléfono: </label>
+					<input type="text" id="telefono" onkeydown="CheckString()" title="El formato debe ser: A2A 3F3">
+					<span id="chktel"></span>
+				</p>				
+				<button type="submit">Enviar</button>
+			</form>
+		</section>
+
+	</article>
+
+</body>
+</html>

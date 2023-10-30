@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html manifest="prueba.appcache">
+<head>
+	<title>AppCache</title>
+	<script type="text/javascript">
+		window.onload = function(){
+			var appCache = window.applicationCache; // Se obtiene la referencia del chaché
+			appCache.oncached = function (e) { alert("cache successfully downloaded."); };
+			appCache.onupdateready = function (e) { appCache.swapCache(); };			
+		}
+	</script>
+</head>
+<body>
+	<article>
+		<header>
+			<h1>Ejemplo de AppCache</h1>
+		</header>
+		<section>
+			<h2>Seccion 1</h2>
+			<img src="img/wittman.jpg">
+		</section>
+	</article>
+</body>
+</html>

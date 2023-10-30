@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Geolocation API</title>
+	<script type="text/javascript">
+		// var geoLocator = window.navigator.geolocation;
+		// function mostrar(){
+		// 	geoLocator.getCurrentPosition
+		// }
+		var watcher;
+		var geoLocator;
+
+		window.onload = function () {
+			geoLocator = window.navigator.geolocation;
+			var posOptions = {enableHighAccuracy: true,timeout: 45000,maximumAge: 0};
+			// geoLocator.getCurrentPosition(successPosition, errorPosition,
+			// posOptions);
+
+			watcher = geoLocator.watchPosition(successPosition, errorPosition, posOptions);
+		}
+
+		function mostrar(){
+			navigator.geolocation.getCurrentPosition(successPosition);
+		}
+
+		function successPosition(pos) {
+			console.log(pos);
+			var sp = document.createElement("p");
+			sp.innerText = 	" Latitude: " + pos.coords.latitude +
+							" Longitude: " + pos.coords.longitude;
+			document.getElementById("geoResults").appendChild(sp);	
+			geoLocator.clearWatch(watcher);		
+		}
+		function errorPosition(err) {
+			console.log("Error: " + err);
+			var sp = document.createElement("p");
+			sp.innerText = "error: " + err.message; + " code: " + err.code;
+			document.getElementById("geoResults").appendChild(sp);			
+		}
+
+	</script>
+</head>
+<body>
+	<article>
+		<hgroup>
+			<h1>Ejemplo del API de Geolocation</h1>
+		</hgroup>
+		<article>
+			<div id="geoResults">
+				<button onclick="mostrar()">Mostrar Posicion</button>
+				<p id="locacion"></p>
+			</div>
+		</article>
+	</article>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<script>
+	window.onload = function(){
+		var QA = document.getElementById("Question1");
+		var Q1Y = document.getElementById("Q1Y");
+		var Q2 = document.getElementById("Question2");
+		
+		var Q2Y = document.getElementById("Q2Y");
+		var Q4 = document.getElementById("Question4");
+		var Q5 = document.getElementById("Question5");
+
+		QA.onclick = function(){
+			if(Q1Y.checked)
+				Q2.style.display = 'none'
+			else
+				Q2.style.display = 'inline'
+		}
+
+		Q2.onclick = function(){
+			if(Q2Y.checked){
+				Q4.style.display = 'inline'
+				Q5.style.display = 'none'
+			} else {
+				Q4.style.display = 'none'
+				Q5.style.display = 'inline'
+			}
+		}		
+	}	
+
+</script>
+
+<body>
+	<header>
+		
+	</header>
+	<section>
+		<article>
+		<hgroup>
+			<h1>Questionnaire</h1>
+			<h2>Answer the questions in order as they
+			appear.</h2>
+		</hgroup>
+		<div id="Question1">
+			1. 
+			<input type="radio" name="Q1" id="Q1Y" value="Y">Yes
+			<input type="radio" name="Q1" id="Q1N" value="N">No
+		</div>
+		<div id="Question2">
+			2. 
+			<input type="radio" name="Q2" id="Q2Y" value="Y">Yes
+			<input type="radio" name="Q2" id="Q2N" value="N">No
+		</div>
+		<div id="Question3">
+			3. ....
+		</div>
+		<div id="Question4">
+			4. ....
+		</div>
+		<div id="Question5">
+			5. ....
+		</div>
+		<div id="Question6">
+			6. ....
+		</div>
+		<div id="Question7">
+			7. ....
+		</div>
+		<div id="Question8">
+			8. ....
+		</div>
+		<div id="Question9">
+			9. ....
+		</div>
+		<div id="Question10">
+			10. ....
+		</div>
+		</article>
+	</section>
+</body>
+</html>

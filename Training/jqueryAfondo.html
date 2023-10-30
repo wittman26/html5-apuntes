@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JQuery y javascript</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script>
+		var car1 = {
+			year: 2000,
+			make: 'Ford',
+			model: 'Fusion',
+			repairs: ['repair1', 'repair2', 'repair3'],
+			getInfo: function () {
+				return 'Vehicle: ' + this.year + ' ' + this.make + ' ' + this.model;
+			}
+		};
+
+		function getVehicle(theYear, theMake, theModel) {
+			var vehicle = new Object();
+			vehicle.year = theYear;
+			vehicle.make = theMake;
+			vehicle.model = theModel;
+			vehicle.getInfo = function () {
+				return 'Vehicle: ' + this.year + ' ' + this.make + ' ' + this.model;
+			};
+			return vehicle;
+		}
+
+		var car1 = getVehicle(2000, 'Ford', 'Fusion');
+		var car2 = getVehicle(2010, 'BMW', 'Z4');
+
+		console.log(car1.getInfo());
+		console.log(car2.getInfo());		
+
+		//Creación de una clase
+		function Vehicle(theYear, theMake, theModel) {
+			var year = theYear; //var permite que sea encapsulada la variable
+			var make = theMake;
+			var model = theModel;
+			this.getyear = function(){ return year;}; //Se puede usar getter
+			this.getInfo = function () {
+				return 'Vehicle: ' + year + ' ' + make + ' ' + model;
+			};
+		}
+
+		//Creación de una clase (este es el constructor)
+		function Vehicle(theYear, theMake, theModel) {
+			this.year = theYear; //Propiedad pública this.propiedad
+			this.make = theMake;
+			this.model = theModel;
+		}
+
+		Vehicle.prototype.getInfo = function () {
+			return 'Vehicle: ' + this.year + ' ' + this.make + ' ' + this.model;
+		}
+
+
+
+		//Creación de objetos
+		var car1 = new Vehicle(2000, 'Ford', 'Fusion');
+		var car2 = new Vehicle(2010, 'BMW', 'Z4');
+
+		console.log(car1.getInfo());
+		console.log(car2.getInfo());
+		//Prototype permite adicionar propiedades o funciones a la clase
+		Vehicle.prototype.getFrase = function () {
+			return 'El carrito es del año : ' + this.year + ' de fabricante  ' + this.make + ' con nombre ' + this.model;
+		}		
+		console.log(car1.getFrase());
+		console.log(car2.getFrase());
+
+		console.log("Tiene getFrase: " + Vehicle.prototype.hasOwnProperty('getFrase')); //Tiene esa propiedad? sale true
+		console.log("Tiene year: " + car1.hasOwnProperty('year')); //Tiene esa propiedad? sale true
+		console.log("Tiene a String: " + Vehicle.prototype.toString); //Tiene esa propiedad? sale true
+
+
+		//Creación de una clase (este es el constructor)
+			function Conversion(theYear, theModel) {
+				var propietario = 'BOO!'; 		//Propiedad privada (No es muy usado)
+				function getPropietario() {return propietario;} //Función privada
+
+				Conversion.prototype.llamaPrivado = function(){	//Única forma de acceder a función privada
+					return getPropietario();
+				}
+
+				this.getPropietario = function() { return propietario;} //Función privelegiada
+				this.setPropietario = function(newpropietario) { pripetario = newpropietario;} //Función privelegiada
+
+				this.anho = theYear; //Propiedad pública this.propiedad
+				this.modelo = theModel;
+				this.info = function(){		//Función pública 1 (asignado a cada objeto)
+					console.log("FUNC PUBLICA 1 info clase Conversion en el año " + this.anho);
+				}
+				this._varprivada = 0; 		//Se usa como convención _ para indicar que es privada
+			}
+
+			Conversion.prototype.info2 = function(){	//Función pública 2 (asignado a cada clase) AHORRA MEMORIA
+				console.log("FUNC PUBLICA 2 info clase Conversion en el año " + this.anho);
+			}
+
+			Conversion.GRADOS_RADIANES = Math.PI/100;
+			Conversion.RADIANES_GRADOS = 100/Math.PI;
+
+			Conversion.aRadianes = function(grados){
+				return grados * Conversion.GRADOS_RADIANES;
+			}
+
+		var aux = new Conversion(1999,'Antiguito');
+
+		console.log("**************************************");
+		console.log("VAR STATIC Grados a radianes: " + Conversion.GRADOS_RADIANES);
+		console.log("FUNC STATIC Grados a radianes: " + Conversion.aRadianes(180));
+		aux.info();
+		aux.info2();
+		console.log(aux.llamaPrivado());
+		console.log(aux.getPropietario());
+
+		function Persona(dni,nombre){
+			this.dni = dni;
+			this.nombre = nombre;
+			this.numPiernas = 2;	//Si se define una igual en prototype, esta tiene prioridad
+		}
+
+		Persona.prototype.saludar = function(){
+			console.log("Hola, soy " + this.nombre);
+		}
+
+		var yo = new Persona('1234','Wittman');
+		var tu = new Persona('5678','Laudy');
+
+		//Al modificar el prototype, cambia todas los objetos 
+		Persona.prototype.probando = function(){
+			console.log("Hola, soy " + this.nombre);
+		}
+
+		Persona.prototype.numPiernas = 89;
+
+		console.log(yo);
+
+		yo.saludar();
+		tu.saludar();
+
+		
+	</script>
+</head>
+<body>
+	<header>
+		
+	</header>
+	<section>
+		<div id="div1">
+			
+		</div>
+		<div>
+			<form>
+				<input type="text" name="" id="input1" value="Algo"><br>
+				<input type="text" name="" name="comment" value="Algo" autofocus="autofocus"><br>
+				Current Age:
+				<input type="number" name="age"
+				min="18" max="99" value="30"
+				required="required" /><br />
+				Rating:
+				<input type="range" name="rating"
+				min="1" max="7" value="4" /><br />
+				<button id="btnEnviar3">btnEnviar-click</button>
+				<span id="aviso"></span>
+				<button id="btnEnviar2">btnEnviar2.click</button>
+			</form>
+			<span class="hidden">Escondido 1</span>
+			<span class="hidden">Escondido 2</span>
+			<span class="hidden">Escondido 3</span>
+		</div>
+	</section>
+
+	<script>
+		/*******************/
+		/* JQUERY */
+		/*******************/
+
+		$(document).ready(function(){
+			$('#input1').val('$("#input1").val("Valor nuevo para Input")');
+			$('#div1').text('$("#div1").text("Valor nuevo para Div")');
+			$('.hidden').text('Escondidos!');
+
+			$('input[name="comment"]').focus();
+
+			$('#btnEnviar3').click(function(){
+				$('#aviso').text('Click en boton');
+			});
+
+			$('#btnEnviar2').on('click',function(){
+				$('#aviso').text('Click en boton #2');
+			});
+		});		
+	</script>
+</body>
+</html>
